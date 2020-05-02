@@ -15,12 +15,17 @@ class Contact extends JsonResource
     public function toArray($request)
     {
         return [
-            'contact_id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'birthday' => $this->birthday->format('m/d/Y'),
-            'company' => $this->company,
-            'updated_at' => $this->updated_at->diffForHumans()
+            'data' => [
+                'contact_id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+                'birthday' => $this->birthday->format('m/d/Y'),
+                'company' => $this->company,
+                'updated_at' => $this->updated_at->diffForHumans()
+            ],
+            'links' => [
+                'self' => $this->path()
+            ]
         ];
     }
 }
