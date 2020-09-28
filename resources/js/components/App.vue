@@ -55,12 +55,11 @@
             <div class="flex flex-col flex-1 h-screen overflow-y-hidden">
                 <div class="h-16 px-6 border-b border-gray-400 flex items-center justify-between">
                     <div>
-                        Title
+                        {{ title }}
                     </div>
 
                     <div class="flex items-center">
-                        <p>Search</p>
-                        <p>VG</p>
+                        <UserCircle :name="user.name" />
                     </div>
                 </div>
 
@@ -74,12 +73,22 @@
 </template>
 
 <script>
+import UserCircle from "./UserCircle";
 export default {
     name: "App",
+    components: {UserCircle},
     props: [
         "user"
     ],
+    data: function(){
+        return {
+            title: ''
+        }
+    },
     created() {
+
+        this.title = this.$route.meta.title;
+
         window.axios.interceptors.request.use(
             (config) => {
                 if (config.method === 'get') {
@@ -93,6 +102,14 @@ export default {
                 return config;
             }
         )
+    },
+    watch: {
+        $route(to, from){
+            this.title = to.meta.title
+        },
+        title(){
+            document.title = this.title + ' | Njot'
+        }
     }
 }
 </script>
