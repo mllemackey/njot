@@ -1837,7 +1837,7 @@
                     "homepage": "https://benramsey.com"
                 }
             ],
-            "description": "A PHP 7.2+ library for representing and manipulating collections.",
+            "description": "A PHP 7.2+ library for reeventing and manipulating collections.",
             "homepage": "https://github.com/ramsey/collection",
             "keywords": [
                 "array",
@@ -5328,7 +5328,7 @@
                     "role": "lead"
                 }
             ],
-            "description": "Collection of value objects that represent the types of the PHP type system",
+            "description": "Collection of value objects that reevent the types of the PHP type system",
             "homepage": "https://github.com/sebastianbergmann/type",
             "time": "2019-07-02T08:10:15+00:00"
         },

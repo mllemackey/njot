@@ -15,10 +15,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::get('/contacts', 'ContactsController@index');
-    Route::post('/contacts', 'ContactsController@store');
-    Route::get('/contacts/{contact}', 'ContactsController@show');
-    Route::put('/contacts/{contact}', 'ContactsController@update');
-    Route::delete('/contacts/{contact}', 'ContactsController@destroy');
+    Route::get('/events', 'EventsController@index');
+    Route::get('/me/events', 'EventsController@userEvents');
+    Route::post('/events', 'EventsController@store');
+
+    Route::get('/events/{event}', 'EventsController@show');
+    Route::put('/events/{event}', 'EventsController@update');
+    Route::post('/events/{event}/users', 'EventsController@addUsers');
+    Route::put('/events/{event}/users', 'EventsController@deleteUsers');
+    Route::delete('/events/{event}', 'EventsController@destroy');
+
+    Route::get('/users',  'UsersController@index');
+    Route::get('/users/{user}',  'UsersController@show');
+    Route::put('/users/{user}',  'UsersController@update');
+
+    Route::get('/present-ideas',  'PresentIdeasController@index');
+    Route::get('/present-ideas/{presentIdeas}',  'PresentIdeasController@show');
+    Route::put('/present-ideas/{presentIdeas}',  'PresentIdeasController@update');
+    Route::post('/present-ideas/{presentIdeas}/votes', 'EventsController@addVotes');
+    Route::put('/present-ideas/{presentIdeas}/votes', 'EventsController@deleteVotes');
 
 });

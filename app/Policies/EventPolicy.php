@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Contact;
+use App\Event;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ContactPolicy
+class EventPolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,14 @@ class ContactPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Contact  $contact
+     * @param  \App\Event  $event
      * @return mixed
      */
-    public function view(User $user, Contact $contact)
+    public function view(User $user, Event $event)
     {
-        return $user->id == $contact->user_id;
+        return $event->users()->get()->contains($user->id)
+//            || $event->privacy
+            || $user->id == $event->user_id;
     }
 
     /**
@@ -48,34 +50,34 @@ class ContactPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Contact  $contact
+     * @param  \App\Event  $event
      * @return mixed
      */
-    public function update(User $user, Contact $contact)
+    public function update(User $user, Event $event)
     {
-        return $user->id == $contact->user_id;
+        return $user->id == $event->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Contact  $contact
+     * @param  \App\Event  $event
      * @return mixed
      */
-    public function delete(User $user, Contact $contact)
+    public function delete(User $user, Event $event)
     {
-        return $user->id == $contact->user_id;
+        return $user->id == $event->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Contact  $contact
+     * @param  \App\Event  $event
      * @return mixed
      */
-    public function restore(User $user, Contact $contact)
+    public function restore(User $user, Event $event)
     {
         return false;
     }
@@ -84,10 +86,10 @@ class ContactPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Contact  $contact
+     * @param  \App\Event  $event
      * @return mixed
      */
-    public function forceDelete(User $user, Contact $contact)
+    public function forceDelete(User $user, Event $event)
     {
         return false;
     }

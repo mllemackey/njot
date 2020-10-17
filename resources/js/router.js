@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ExampleComponent from "./components/ExampleComponent";
-import ContactsCreate from "./views/ContactsCreate";
-import ContactsShow from "./views/ContactsShow";
-import ContactsEdit from "./views/ContactsEdit";
-import ContactsIndex from "./views/ContactsIndex";
+import EventsCreate from "./views/EventsCreate";
+import EventsShow from "./views/EventsShow";
+import EventsEdit from "./views/EventsEdit";
 import Logout from "./views/Logout";
+import Calendar from "./views/Calendar";
+import Dashboard from "./views/Dashboard";
+import EventsList from "./components/EventsList";
+import UserProfile from "./views/UserProfile";
+import UserProfileEdit from "./views/UserProfileEdit";
 
 Vue.use(VueRouter);
 
@@ -13,37 +16,59 @@ export default new VueRouter({
     routes: [
         {
             path: '/',
-            component: ExampleComponent,
+            component: Dashboard,
             meta: {
-                title: 'Welcome'
+                title: 'Welcome to Njot'
             }
         },
         {
-            path: '/contacts',
-            component: ContactsIndex,
+            path: '/events',
+            component: EventsList,
             meta: {
-                title: 'Contacts'
+                title: 'My Events'
+            },
+            props: { api: 'events/' }
+        },
+        {
+            path: '/calendar',
+            component: Calendar,
+            meta: {
+                title: 'Calendar'
             }
         },
         {
-            path: '/contacts/create',
-            component: ContactsCreate,
+            path: '/users/:id',
+            component: UserProfile,
             meta: {
-                title: 'Create Contact'
+                title: 'User Profile'
             }
         },
         {
-            path: '/contacts/:id',
-            component: ContactsShow,
+            path: '/users/:id/edit',
+            component: UserProfileEdit,
             meta: {
-                title: 'Contact'
+                title: 'Edit User Profile'
             }
         },
         {
-            path: '/contacts/:id/edit',
-            component: ContactsEdit,
+            path: '/events/create',
+            component: EventsCreate,
             meta: {
-                title: 'Edit Contact'
+                title: 'Create Event'
+            }
+        },
+        {
+            path: '/events/:id',
+            component: EventsShow,
+            meta: {
+                title: 'Event Details'
+            }
+        },
+        {
+            path: '/events/:id/edit',
+            component: EventsEdit,
+            meta: {
+                title: 'Edit Event'
             }
         },
         {

@@ -4,6 +4,9 @@ module.exports = {
     extend: {
         width: {
             '96' : '24rem'
+        },
+        maxHeight: {
+            'thumb': '100px',
         }
     },
   },

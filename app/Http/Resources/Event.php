@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Contact extends JsonResource
+class Event extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,17 @@ class Contact extends JsonResource
     {
         return [
             'data' => [
-                'contact_id' => $this->id,
+                'event_id' => $this->id,
+                'admin' => $this->user_id,
                 'name' => $this->name,
-                'email' => $this->email,
-                'birthday' => $this->birthday->format('m/d/Y'),
-                'company' => $this->company,
+                'description' => $this->description,
+                'beneficier' => $this->beneficier,
+                'date' => $this->date->format('m/d/Y'),
+                'amount' => $this->amount,
+                'image' => $this->image,
+                'users' => $this->users,
+                'privacy' => $this->privacy,
+                'presentIdeas' => $this->presentIdeas,
                 'updated_at' => $this->updated_at->diffForHumans()
             ],
             'links' => [

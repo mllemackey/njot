@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'api_token'
+        'name', 'email', 'password', 'api_token', 'image', 'bank_account'
     ];
 
     /**
@@ -37,7 +37,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function contacts(){
-        return $this->hasMany(Contact::class);
+    public function events(){
+        return $this->belongsToMany(Event::class);
     }
+
+    public function myEvents(){
+        return $this->hasMany(Event::class);
+    }
+
+    public function myPresentIdeas(){
+        return $this->hasMany(PresentIdea::class);
+    }
+
+    public function votedPresentIdeas(){
+        return $this->belongsToMany(PresentIdea::class,'user_voted');
+    }
+
 }
