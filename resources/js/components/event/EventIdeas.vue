@@ -8,8 +8,10 @@
                 <div class="flex">
                     <p class="w-5/6">{{ i.idea }}</p>
 
-                    <button class="w-1/6 bg-blue-600 p-2 text-white" @click="vote()">
-                        {{ i.voted }} <img src="/uploads/svg/heart-outline.svg" alt="like" width="30" height="30">
+                    <button class="w-1/6 p-2 " @click="addVote(i.id)">
+                        {{ i.voted }}
+                        <img v-if="i.iVoted" src="/uploads/svg/heart-full.svg" alt="like" width="30" height="30">
+                        <img v-else src="/uploads/svg/heart-outline.svg" alt="like" width="30" height="30">
                     </button>
                 </div>
             </div>
@@ -77,23 +79,11 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['addVotes', 'deleteVotes', 'createPresentIdea']),
-        updateSelectedTags() {
-            this.addVotes({
-                id: this.$route.params.id,
-                data: this.votes
+        ...mapActions(['vote', 'deleteVotes', 'createPresentIdea']),
+        addVote(id) {
+            this.vote({
+                present_idea_id: id
             })
-        },
-        deleteVotes(user) {
-            let userArray = []
-            userArray.push(user)
-            this.deleteEventUsers({
-                id: this.$route.params.id,
-                data: userArray
-            })
-        },
-        vote() {
-            // this.votes.push(auth()->)
         },
         addNewIdea() {
             this.modal = !this.modal

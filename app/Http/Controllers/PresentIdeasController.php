@@ -7,6 +7,7 @@ use App\Http\Resources\PresentIdea as PresentIdeaResource;
 use App\PresentIdea;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function GuzzleHttp\Promise\all;
 
 class PresentIdeasController extends Controller
 {
@@ -54,17 +55,21 @@ class PresentIdeasController extends Controller
             ->setStatusCode(Response::HTTP_OK);
     }
 
-    public function addVotes(PresentIdea $presentIdea)
+    public function vote(PresentIdea $presentIdea)
     {
-        $this->authorize('update', $presentIdea);
+        $this->authorize('vote', $presentIdea);
 
-        $data = collect(request()->all())->pluck('id');
+//        dd(request()->all());
+//        $data = request()->call();
 
-        foreach ($data as $user) {
-            $presentIdea->usersVoted()->attach($user);
-        }
+        $user = request()->user();
+        $presentIdea = PresentIdea::find(request()->present_idea_id);
+//        dd($presentIdea);
+//        $data = collect(request()->all())->pluck('id');
 
-        return (new PresentIdeaResource($presentIdea))
+        $presentIdea->usersVoted()->toggle($user);
+
+        return PresentIdeaResource::collection(PresentIdea::all())
             ->response()
             ->setStatusCode(Response::HTTP_OK);
     }

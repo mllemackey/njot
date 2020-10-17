@@ -12,9 +12,6 @@ const getters = {
     // }
 }
 const mutations = {
-    // setUserEvents: (state, payload) => {
-    //     state.userEvents = payload
-    // },
     addPresentIdea: (state, payload) => {
         state.presentIdeas = [...state.presentIdeas, payload]
     },
@@ -46,9 +43,9 @@ const actions = {
                 });
         });
     },
-    addVotes: ({dispatch, commit}, payload) => {
+    vote: ({dispatch, commit}, payload) => {
         return new Promise((resolve, reject) => {
-            axios.post('present-ideas/' + payload.id + '/votes', payload.data ).then(response => {
+            axios.put('present-ideas/' + payload.present_idea_id + '/votes', payload ).then(response => {
                 commit('setPresentIdeas', response.data.data)
 
                 resolve(response.data.data)

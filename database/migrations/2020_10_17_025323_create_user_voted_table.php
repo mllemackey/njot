@@ -16,6 +16,7 @@ class CreateUserVotedTable extends Migration
         Schema::create('user_voted', function (Blueprint $table) {
             $table->foreignId('present_idea_id')->constrained('present_ideas');
             $table->foreignId('user_id')->constrained();
+            $table->primary(['present_idea_id', 'user_id']);
         });
     }
 

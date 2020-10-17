@@ -57,6 +57,18 @@ class PresentIdeaPolicy
     }
 
     /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\User  $user
+     * @param  \App\PresentIdea  $presentIdea
+     * @return mixed
+     */
+    public function vote(User $user, PresentIdea $presentIdea)
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
