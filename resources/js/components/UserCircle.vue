@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded-full border border-gray-400 text-white bg-blue-400 w-10 h-10 flex justify-center items-center">
+    <div class="user-circle rounded-full border border-white text-blue-500 text-xs bg-white w-8 h-8 flex justify-center items-center">
         {{ userCircle }}
     </div>
 </template>

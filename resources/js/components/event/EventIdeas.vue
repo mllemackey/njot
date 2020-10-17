@@ -1,24 +1,25 @@
 <template>
-    <div class="w-3/4">
-        <h2 class="text-2xl bold">Present Ideas</h2>
-        <div v-if="eventPresentIdeas.length === 0">No present ideas yet.</div>
-        <div v-else class="ideas border border-black p-3 m-3 overflow-y-scroll h-40">
-            <div v-for="i in eventPresentIdeas" class="border-b border-black py-2 my-2">
-                <h3 class="text-lg text-blue-600 bold">{{ i.user.name }}</h3>
-                <div class="flex">
-                    <p class="w-5/6">{{ i.idea }}</p>
+    <div class="w-3/4 pl-6">
+        <div class="card">
+            <h2 class="text-2xl bold">Present Ideas</h2>
+            <div v-if="eventPresentIdeas.length === 0">No present ideas yet.</div>
+            <div v-else class="ideas border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll h-64">
+                <div v-for="i in eventPresentIdeas" class="border-b border-gray-300 pb-4 my-2">
+                    <h3 class="text-lg text-blue-600 bold">{{ i.user.name }}</h3>
+                    <div class="flex items-start">
+                        <p class="w-5/6  pr-6">{{ i.idea }}</p>
 
-                    <button class="w-1/6 p-2 " @click="addVote(i.id)">
-                        {{ i.voted }}
-                        <img v-if="i.iVoted" src="/uploads/svg/heart-full.svg" alt="like" width="30" height="30">
-                        <img v-else src="/uploads/svg/heart-outline.svg" alt="like" width="30" height="30">
-                    </button>
+                        <button class="w-1/6 bg-blue-600 p-2 text-white text-sm rounded" @click="addVote(i.id)">
+                            <font-awesome-icon v-if="i.iVoted" :icon="['fas', 'heart']" class="text-white text-base mr-2" /> ({{ i.voted }} votes)
+                            <font-awesome-icon v-else :icon="['fas', 'heart']" class="text-blue-600 text-base mr-2" /> ({{ i.voted }} votes)
+                        </button>
+                    </div>
                 </div>
             </div>
+            <button class="py-3 px-4 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75" @click="modal = true">
+                Add New Present Idea
+            </button>
         </div>
-        <button class="w-1/6 bg-blue-600 p-2 text-white" @click="modal = true">
-            Add New Present Idea
-        </button>
         <div v-if="modal" class="absolute z-20 m-auto inset-0 -translate-y-1/2 top-1/2">
             <div class="bg-blue-900 text-white rounded-lg p-8 w-64 my-0 mx-auto flex flex-col">
                 <h4>Add New Idea</h4>
