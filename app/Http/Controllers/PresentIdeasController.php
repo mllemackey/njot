@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
 use App\Http\Resources\PresentIdea as PresentIdeaResource;
 use App\PresentIdea;
 use Illuminate\Http\Request;
@@ -20,9 +21,13 @@ class PresentIdeasController extends Controller
     {
         $this->authorize('create', PresentIdea::class);
 
-        $data = request()->all();
+//        dd(request()->user()->id);
 
-        $presentIdea = $request->user()->presentIdeas()->create($data);
+        $data = request()->all();
+        $data['user_id'] = request()->user()->id;
+
+        $event = Event::find($request->event_id);
+        $presentIdea = $event->presentIdeas()->create($data);
 
         return (new PresentIdeaResource($presentIdea))
             ->response()

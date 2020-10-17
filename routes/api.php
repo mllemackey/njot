@@ -31,6 +31,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/present-ideas',  'PresentIdeasController@index');
     Route::get('/present-ideas/{presentIdeas}',  'PresentIdeasController@show');
+    Route::post('/present-ideas', 'PresentIdeasController@store');
     Route::put('/present-ideas/{presentIdeas}',  'PresentIdeasController@update');
     Route::post('/present-ideas/{presentIdeas}/votes', 'EventsController@addVotes');
     Route::put('/present-ideas/{presentIdeas}/votes', 'EventsController@deleteVotes');

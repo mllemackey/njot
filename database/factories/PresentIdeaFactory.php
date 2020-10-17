@@ -13,6 +13,5 @@ $factory->define(PresentIdea::class, function (Faker $faker) {
         'event_id' => Event::all()->isNotEmpty() ? Event::all()->random()->id : factory(Event::class),
         'idea' => $faker->text,
         'order_place' => $faker->url,
-        'votes' => $faker->numberBetween(1, 20)
     ];
 });

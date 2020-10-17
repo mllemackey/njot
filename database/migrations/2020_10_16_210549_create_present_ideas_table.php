@@ -19,7 +19,6 @@ class CreatePresentIdeasTable extends Migration
             $table->unsignedBigInteger('event_id');
             $table->text('idea');
             $table->text('order_place');
-            $table->integer('votes');
             $table->timestamps();
         });
     }

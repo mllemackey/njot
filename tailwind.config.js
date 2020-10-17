@@ -7,7 +7,10 @@ module.exports = {
         },
         maxHeight: {
             'thumb': '100px',
-        }
+        },
+        top: {
+            '1/2': '50%',
+        },
     },
   },
   variants: {},
