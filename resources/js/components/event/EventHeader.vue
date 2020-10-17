@@ -1,11 +1,11 @@
 <template>
     <div class="flex justify-between py-6">
         <div class="cursor-pointer" @click="$router.back()">
-            < Back
+            <font-awesome-icon :icon="['fas', 'arrow-left']" class="text-blue-600 mr-2" /> back
         </div>
         <div class="relative">
-            <router-link :to="'/events/' + event.event_id + '/edit'" class="px-4 py-2 rounded text-green-500 border border-green-500 text-sm font-bold mr-2">Edit</router-link>
-            <a href="#" class="px-4 py-2 border border-red-500 rounded text-sm font-bold text-red-500" @click="modal = !modal">Delete</a>
+            <router-link :to="'/events/' + event.event_id + '/edit'" class="px-4 py-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75">Edit</router-link>
+            <a href="#" class="px-4 py-3 rounded text-sm font-bold text-white bg-red-500" @click="modal = !modal">Delete</a>
 
             <div v-if="modal" class="absolute bg-blue-900 text-white rounded-lg z-20 p-8 w-64 right-0 mt-2 mr-6">
                 <p>Are you sure you want to delete this record?</p>

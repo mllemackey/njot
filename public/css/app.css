@@ -21236,10 +21236,6 @@ video {
           animation: bounce 1s infinite;
 }
 
-body {
-  color: #4a5568;
-}
-
 .loader {
   position: absolute;
   top: 50%;
@@ -21297,6 +21293,44 @@ body {
   100% {
     transform: translateX(40px);
   }
+}
+
+html {
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  color: #545a6d;
+  background-color: #f8f8fb;
+}
+
+.app-logo {
+  min-height: 70px;
+}
+
+.app-logo img {
+  max-height: 50px;
+}
+
+.nav-main {
+  min-height: 70px;
+  color: #fff;
+}
+
+.sidebar-main {
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+}
+
+.card {
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+  margin-bottom: 24px;
+  position: relative;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid #f6f6f6;
+  border-radius: .25rem;
+  padding: 1.25rem;
 }
 
 @media (min-width: 640px){
