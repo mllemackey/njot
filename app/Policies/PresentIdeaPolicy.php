@@ -65,7 +65,7 @@ class PresentIdeaPolicy
      */
     public function vote(User $user, PresentIdea $presentIdea)
     {
-        return true;
+        return $user->id != $presentIdea->user_id;
     }
 
     /**

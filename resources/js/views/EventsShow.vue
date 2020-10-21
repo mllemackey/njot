@@ -4,11 +4,14 @@
             <img src="/uploads/svg/loading.svg" alt="loading"/>
         </div>
         <template v-else>
-            <EventHeader :event="event.data" />
-            <EventInfo :event="event.data" />
+            <EventHeader :event="event" />
+            <EventInfo :event="event" />
             <div class="flex justify-around">
                 <EventUsers :event="event" />
                 <EventIdeas :event="event" />
+            </div>
+            <div>
+                <EventFunding :event="event" />
             </div>
         </template>
     </div>
@@ -20,6 +23,7 @@ import EventHeader from "../components/event/EventHeader";
 import EventUsers from "../components/event/EventUsers";
 import {mapActions, mapGetters} from "vuex";
 import EventIdeas from "../components/event/EventIdeas";
+import EventFunding from "../components/event/EventFunding";
 
 export default {
     name: "EventsShow",
@@ -27,7 +31,8 @@ export default {
         EventUsers,
         EventIdeas,
         EventHeader,
-        EventInfo
+        EventInfo,
+        EventFunding
     },
     data: function () {
         return {

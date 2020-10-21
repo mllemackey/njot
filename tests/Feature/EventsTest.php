@@ -46,9 +46,7 @@ class EventsTest extends TestCase
                 ->assertJson([
                     'data' => [
                         [
-                            'data' => [
-                                 'event_id' => $event->id
-                            ]
+                            'id' => $event->id
                         ]
                     ]
                 ]);
@@ -82,12 +80,8 @@ class EventsTest extends TestCase
 
         $response->assertStatus(Response::HTTP_CREATED);
         $response->assertJson([
-            'data' => [
-                'event_id' => $event->id
-            ],
-            'links' => [
-                'self' => $event->path()
-            ]
+            'id' => $event->id,
+            'self_link' => $event->path()
         ]);
 
 
@@ -126,16 +120,14 @@ class EventsTest extends TestCase
         $response = $this->get('/api/events/' . $event->id . '?api_token=' . $this->user->api_token);
 
         $response->assertJson([
-            'data' => [
-                'event_id' => $event->id,
-                'name' => $event->name,
-                'description' => $event->description,
-                'beneficier' => $event->beneficier,
-                'date' => $event->date->format('m/d/Y'),
-                'amount' => $event->amount,
-                'image' => $event->image,
-                'updated_at' => $event->updated_at->diffForHumans()
-            ]
+            'id' => $event->id,
+            'name' => $event->name,
+            'description' => $event->description,
+            'beneficier' => $event->beneficier,
+            'date' => $event->date->format('m/d/Y'),
+            'amount' => $event->amount,
+            'image' => $event->image,
+            'updated_at' => $event->updated_at->diffForHumans()
         ]);
     }
 
@@ -171,12 +163,8 @@ class EventsTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJson([
-            'data' => [
-                'event_id' => $event->id
-            ],
-            'links' => [
-                'self' => $event->path()
-            ]
+            'id' => $event->id,
+            'self_link' => $event->path()
         ]);
 
     }

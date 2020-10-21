@@ -37,6 +37,7 @@ class EventsController extends Controller
         }
 
         $event = $request->user()->events()->create($data);
+        $event->users()->attach($data['user_id']);
 
         return (new EventResource($event))
             ->response()
@@ -69,7 +70,7 @@ class EventsController extends Controller
 
     public function addUsers(Event $event)
     {
-        $this->authorize('update', $event);
+//        $this->authorize('update', $event);
 
         $data = collect(request()->all())->pluck('id');
 

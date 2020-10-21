@@ -26,20 +26,34 @@ class PresentIdea extends JsonResource
             'usersVoted' => $this->usersVoted,
             'iVoted' => $this->userVoted($this->usersVoted),
             'voted' => count($this->usersVoted),
+            'can' => $this->permissions(),
             'updated_at' => $this->updated_at->diffForHumans()
         ];
     }
 
     public function userVoted(Collection $users)
     {
-//        dump(Auth::id());
 
         foreach ($users as $user){
-//                dump($user->id);
             if($user->id == Auth::id()) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Returns the permissions of the resource.
+     *
+     * @return array
+     */
+    protected function permissions()
+    {
+        $user = Auth::user();
+        return [
+            'vote' => $user->can('vote', $this->resource),
+            'update' => $user->can('update', $this->resource),
+            'delete' => $user->can('delete', $this->resource),
+        ];
     }
 }

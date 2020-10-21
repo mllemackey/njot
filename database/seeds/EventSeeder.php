@@ -17,7 +17,8 @@ class EventSeeder extends Seeder
 
         foreach(Event::all() as $event) {
 
-            $users = User::all()->random(3)->pluck('id');
+            $event->users()->attach($event->user_id);
+            $users = User::all()->except($event->user_id)->random(3)->pluck('id');
 
             foreach ($users as $user){
                 $event->users()->attach($user);

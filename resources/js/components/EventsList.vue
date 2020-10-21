@@ -7,8 +7,8 @@
             <div v-if="userEvents && userEvents.length === 0">No events yet. <a href="/events/create">Get Started</a></div>
 
             <div v-for="event in userEvents">
-                <router-link :to="'/events/' + event.data.event_id">
-                    <EventInfo :event="event.data"/>
+                <router-link :to="'/events/' + event.id">
+                    <EventInfo :event="event"/>
                 </router-link>
             </div>
         </div>

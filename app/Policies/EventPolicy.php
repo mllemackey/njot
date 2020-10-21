@@ -31,7 +31,7 @@ class EventPolicy
     public function view(User $user, Event $event)
     {
         return $event->users()->get()->contains($user->id)
-//            || $event->privacy
+            || $event->privacy
             || $user->id == $event->user_id;
     }
 

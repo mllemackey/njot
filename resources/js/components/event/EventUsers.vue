@@ -2,14 +2,19 @@
     <div class="card w-1/4">
         <h2 class="text-2xl bold">Participants</h2>
         <div class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll h-40">
-            <span v-for="p in eventUsers">
-                {{ p.name }} <button v-if="p.id != event.data.admin" @click="deleteUser(p)">X</button><br/>
-            </span>
+            <div v-for="p in eventUsers">
+                <span :class="{ 'font-bold text-blue-600' : p.id === event.admin.id }">{{ p.name }}
+                    <sup class="text-blue-600" v-if="p.id === event.admin.id">admin</sup>
+                </span>
+                <button v-if="event.can.delete && p.id !== event.admin.id" @click="deleteUser(p)">X</button><br/>
+            </div>
         </div>
         <div>
+            <h3 class="text-xl">Select users to be added:</h3>
             <label>
                 <select v-model="participants"
                         multiple
+                        class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll w-full h-40"
                 >
                     <option v-for="option in nonparticipants" :value="option">
                         {{ option.name }}
@@ -17,7 +22,7 @@
                 </select>
             </label>
         </div>
-        <button class="py-3 px-4 my-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75" @click="updateSelectedTags">Add Participants</button>
+        <button v-show="participants.length !== 0" class="py-3 px-4 my-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75" @click="updateSelectedTags">Add Participants</button>
     </div>
 </template>
 
@@ -38,7 +43,7 @@ export default {
         ...mapGetters(['users', 'eventUsers']),
         nonparticipants() {
             return this.users.filter(({id}) => !this.eventUsers.find(o => o.id == id));
-        }
+        },
 
     },
     mounted() {

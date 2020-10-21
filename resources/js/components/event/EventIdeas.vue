@@ -7,12 +7,20 @@
                 <div v-for="i in eventPresentIdeas" class="border-b border-gray-300 pb-4 my-2">
                     <h3 class="text-lg text-blue-600 bold">{{ i.user.name }}</h3>
                     <div class="flex items-start">
-                        <p class="w-5/6  pr-6">{{ i.idea }}</p>
-
-                        <button class="w-1/6 bg-blue-600 p-2 text-white text-sm rounded" @click="addVote(i.id)">
-                            <font-awesome-icon v-if="i.iVoted" :icon="['fas', 'heart']" class="text-white text-base mr-2" /> ({{ i.voted }} votes)
-                            <font-awesome-icon v-else :icon="['fas', 'heart']" class="text-blue-600 text-base mr-2" /> ({{ i.voted }} votes)
+                        <div class="w-5/6  pr-6">
+                            <p>{{ i.idea }}</p>
+                            <p>{{ i.order_place }}</p>
+                        </div>
+                        <button v-if="i.can.vote" class="w-1/6 bg-blue-600 p-2 text-white text-sm rounded hover:bg-blue-400" @click="addVote(i.id)">
+                            <font-awesome-icon v-if="i.iVoted" :icon="['fas', 'heart']" class="text-red-500 text-base mr-2" />
+                            <font-awesome-icon v-else :icon="['fas', 'heart']" class="text-white text-base mr-2" />
+                            ({{ i.voted }} votes)
                         </button>
+                        <div v-else class="w-1/6 text-blue-600 p-2 text-center text-sm rounded">
+                            <font-awesome-icon :icon="['fas', 'heart']" class="text-blue-600 text-base mr-2" />
+                            ({{ i.voted }} votes)
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -51,6 +59,7 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import InputField from "../InputField";
+import _ from 'lodash'
 
 export default {
     name: "EventIdeas",
@@ -74,9 +83,14 @@ export default {
     computed: {
         ...mapGetters(['users', 'eventUsers', 'presentIdeas']),
         eventPresentIdeas() {
-            return this.presentIdeas.filter(p => {
-                return p.event.id === this.event.data.event_id
+            let eventIdeas =  this.presentIdeas.filter(p => {
+                return p.event.id === this.event.id
             })
+
+            return _.orderBy(eventIdeas, [function(o) { return o.voted; }], 'desc');
+        },
+        loggedUser(){
+            return window.user.name
         }
     },
     methods: {
@@ -89,7 +103,7 @@ export default {
         addNewIdea() {
             this.modal = !this.modal
             this.createPresentIdea({
-                event_id: this.event.data.event_id,
+                event_id: this.event.id,
                 idea: this.form.idea,
                 order_place: this.form.order_place
             })

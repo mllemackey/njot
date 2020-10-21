@@ -21,11 +21,11 @@ class Event extends Model
     }
 
     public function users(){
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('funded');
     }
 
     public function admin(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function presentIdeas(){

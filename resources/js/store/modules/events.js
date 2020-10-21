@@ -16,13 +16,16 @@ const getters = {
         return state.event
     },
     publicEvents: state => {
-        return state.events.filter(event => event.data.privacy == 1)
+        return state.events.filter(event => event.privacy === 1)
     },
     eventUsers: state => {
-        return state.event.data.users
+        return state.event.users
+    },
+    eventUsersFunded: state => {
+        return state.event.users.filter(user => user.pivot.funded === 1)
     },
     eventsPresentIdeas: state => {
-        return state.event.data.presentIdeas
+        return state.event.presentIdeas
     },
 }
 const mutations = {
@@ -59,7 +62,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             axios.get('events/' + payload).then(response => {
                 commit('updateLoader', false)
-                commit('setEvent', response.data)
+                commit('setEvent', response.data.data)
 
                 resolve(response.data.data)
             }).catch(error => {
@@ -71,9 +74,9 @@ const actions = {
     addEventUsers: ({dispatch, commit}, payload) => {
         return new Promise((resolve, reject) => {
             axios.post('events/' + payload.id + '/users', payload.data ).then(response => {
-                commit('setEvent', response.data)
+                commit('setEvent', response.data.data)
 
-                resolve(response.data.data)
+                resolve(response.data)
             }).catch(error => {
                 reject(error)
             })
@@ -82,9 +85,9 @@ const actions = {
     deleteEventUsers: ({dispatch, commit}, payload) => {
         return new Promise((resolve, reject) => {
             axios.put('events/' + payload.id + '/users', payload.data ).then(response => {
-                commit('setEvent', response.data)
+                commit('setEvent', response.data.data)
 
-                resolve(response.data.data)
+                resolve(response.data)
             }).catch(error => {
                 reject(error)
             })
@@ -98,7 +101,7 @@ const actions = {
                 }
             })
                 .then(response => {
-                    this.$router.push(response.data.links.self)
+                    this.$router.push(response.self_link)
                 })
                 .catch(errors => {
 

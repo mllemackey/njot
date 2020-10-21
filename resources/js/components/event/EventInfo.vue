@@ -6,7 +6,7 @@
             <div class="flex flex-row flex-1 justify-evenly items-stretch xl:pl-16">
                 <div class="w-1/5 px-4">
                     <p class="font-bold uppercase text-sm">Name</p>
-                    <p class="capitalize">{{ event.event_id }}.{{ event.name }}</p>
+                    <p class="capitalize">{{ event.id }}.{{ event.name }}</p>
                 </div>
                 <div class="w-1/5 px-4">
                     <p class="font-bold uppercase text-sm">Description</p>
