@@ -2,9 +2,10 @@
     <div class="card w-full">
         <h2 class="text-2xl bold mb-3">Funding</h2>
         <div class="w-full">
-            <div class="shadow w-full bg-grey-light">
-                <div class="bg-blue-600 text-xs leading-none py-1" :style="'width: ' + funded + '%'"></div>
-                <p class="text-center text-red-500">{{ funded }}%</p>
+            <div class="progress-wrapper shadow bg-gray-200 w-full">
+                <div class="progress text-xs mb-3 leading-none" :style="'width:' + funded + '%'">
+                    <div class="text-center text-sm text-white py-3">{{ funded }}%</div>
+                </div>
             </div>
         </div>
         <div>

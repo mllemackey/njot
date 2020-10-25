@@ -1,8 +1,9 @@
 <template>
     <div class="card w-1/4">
         <h2 class="text-2xl bold">Participants</h2>
-        <div class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll h-40">
-            <div v-for="p in eventUsers">
+        <div class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll h-40 leading-normal">
+            <div v-for="p in eventUsers"
+            class="py-1">
                 <span :class="{ 'font-bold text-blue-600' : p.id === event.admin.id }">{{ p.name }}
                     <sup class="text-blue-600" v-if="p.id === event.admin.id">admin</sup>
                 </span>
@@ -14,9 +15,10 @@
             <label>
                 <select v-model="participants"
                         multiple
-                        class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll w-full h-40"
+                        class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll w-full h-40 leading-normal"
                 >
-                    <option v-for="option in nonparticipants" :value="option">
+                    <option v-for="option in nonparticipants" :value="option"
+                    class="py-1">
                         {{ option.name }}
                     </option>
                 </select>

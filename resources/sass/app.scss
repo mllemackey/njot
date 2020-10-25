@@ -73,11 +73,7 @@
 
 html {
     font-family: $font-family-sans-serif;
-}
-
-body {
-    color: $grey;
-    background-color: $main-bck;
+    font-size: 15px;
 }
 
 .app-logo {
@@ -95,20 +91,41 @@ body {
 }
 
 .sidebar-main {
-    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
 }
 
 .card {
-    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
     margin-bottom: 24px;
     position: relative;
     word-wrap: break-word;
     background-color: #fff;
-    background-clip: border-box;
-    border: 0 solid #f6f6f6;
     border-radius: .25rem;
     padding: 1.25rem;
+
+    .border-b:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
 }
 
+button {
+    outline: none;
 
+    &:focus {
+        outline: none;
+    }
+}
+
+.progress {
+    min-width: 35px;
+    background-color: $blue;
+    background-size: 40px 40px;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+
+option:checked, [selected] {
+    color: #fff !important;
+    background-color: $blue !important;
+}
 

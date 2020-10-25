@@ -2,7 +2,7 @@
     <div class="main-content flex">
         <Navigation></Navigation>
         <div class="flex flex-col flex-1 ml-56">
-            <div class="nav-main flex h-16 px-6 items-center justify-between fixed w-full z-40 left-0 top-0 pl-56 bg-blue-700">
+            <div class="nav-main flex h-16 px-6 items-center justify-between fixed w-full z-10 left-0 top-0 pl-56 bg-blue-700">
                 <div class="ml-6 font-bold text-xl">
                     {{ title }}
                 </div>
