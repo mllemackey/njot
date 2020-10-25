@@ -9,7 +9,7 @@
                 <button v-if="event.can.delete && p.id !== event.admin.id" @click="deleteUser(p)">X</button><br/>
             </div>
         </div>
-        <div>
+        <div v-if="event.can.update">
             <h3 class="text-xl">Select users to be added:</h3>
             <label>
                 <select v-model="participants"
@@ -21,8 +21,8 @@
                     </option>
                 </select>
             </label>
+        <button class="py-3 px-4 my-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75" @click="updateSelectedTags">Add Participants</button>
         </div>
-        <button v-show="participants.length !== 0" class="py-3 px-4 my-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75" @click="updateSelectedTags">Add Participants</button>
     </div>
 </template>
 

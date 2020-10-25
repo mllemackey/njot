@@ -10,6 +10,10 @@
                         <div class="w-5/6  pr-6">
                             <p>{{ i.idea }}</p>
                             <p>{{ i.order_place }}</p>
+                            <div v-if="i.can.update" class="mt-3">
+                                <button @click="openEditModal(i)" class="text-blue-600 underline mr-3">Edit</button>
+                                <button @click="deleteIdea(i.id)" class="text-blue-600 underline">Delete</button>
+                            </div>
                         </div>
                         <button v-if="i.can.vote" class="w-1/6 bg-blue-600 p-2 text-white text-sm rounded hover:bg-blue-400" @click="addVote(i.id)">
                             <font-awesome-icon v-if="i.iVoted" :icon="['fas', 'heart']" class="text-red-500 text-base mr-2" />
@@ -31,19 +35,23 @@
         <div v-if="modal" class="absolute z-20 m-auto inset-0 -translate-y-1/2 top-1/2">
             <div class="bg-blue-900 text-white rounded-lg p-8 w-64 my-0 mx-auto flex flex-col">
                 <h4>Add New Idea</h4>
-                <form @submit.prevent="addNewIdea" method="post">
+                <form @submit.prevent="edit_id ? editIdea : addNewIdea" method="post">
                     <label for="idea" class="pt-2 uppercase text-xs font-bold absolute text-blue-600">Idea</label>
                     <textarea name="idea" id="idea" v-model="form.idea"
                               class="pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400"></textarea>
-                    <InputField name="order_place" label="Idea Order Place" type="text"
-                                placeholder="Idea Order Place" @update:field="form.order_place = $event"
-                                :errors="errors"/>
+
+                    <label for="order_place" class="pt-2 uppercase text-xs font-bold absolute text-blue-600">Order Place</label>
+                    <input name="order_place" type="text" id="order_place" v-model="form.order_place"
+                           class="pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400" />
 
                     <div class="flex justify-end">
                         <button class="py-2 px-4 rounded text-red-700 border mr-5 hover:border-red-700"
                                 @click="modal = ! modal">Cancel
                         </button>
-                        <button class="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400" @click="addNewIdea">
+                        <button v-if="edit_id != null" class="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400" @click="editIdea">
+                            Edit Present Idea
+                        </button>
+                        <button v-else class="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400" @click="addNewIdea">
                             Add New Idea
                         </button>
                     </div>
@@ -72,6 +80,7 @@ export default {
     data: function () {
         return {
             modal: false,
+            edit_id: null,
             form: {
                 'idea': '',
                 'order_place': ''
@@ -94,7 +103,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['vote', 'deleteVotes', 'createPresentIdea']),
+        ...mapActions(['vote', 'createPresentIdea','editPresentIdea','deletePresentIdea']),
         addVote(id) {
             this.vote({
                 present_idea_id: id
@@ -107,6 +116,34 @@ export default {
                 idea: this.form.idea,
                 order_place: this.form.order_place
             })
+            this.form.idea = ''
+            this.form.order_place = ''
+        },
+        openEditModal(i){
+            this.edit_id = i.id
+            this.form.idea = i.idea
+            this.form.order_place = i.order_place
+            this.modal = true
+        },
+        editIdea(){
+            this.editPresentIdea({
+                present_idea_id: this.edit_id,
+                data: {
+                    idea: this.form.idea,
+                    order_place: this.form.order_place
+                }
+            })
+            this.modal = !this.modal
+            this.edit_id = null
+            this.form.idea = ''
+            this.form.order_place = ''
+        },
+        deleteIdea(id){
+            console.log(id)
+            this.deletePresentIdea({
+                present_idea_id: id
+            })
+            console.log('c')
         }
     }
 }

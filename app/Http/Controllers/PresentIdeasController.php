@@ -22,14 +22,12 @@ class PresentIdeasController extends Controller
     {
         $this->authorize('create', PresentIdea::class);
 
-//        dd(request()->user()->id);
-
         $data = request()->all();
         $data['user_id'] = request()->user()->id;
 
         $event = Event::find($request->event_id);
         $presentIdea = $event->presentIdeas()->create($data);
-
+//dd($event->presentIdeas());
         return (new PresentIdeaResource($presentIdea))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
@@ -48,19 +46,30 @@ class PresentIdeasController extends Controller
 
         $data = request()->all();
 
+//        $presentIdea->idea = $data['idea'];
+//        $presentIdea->order_place = $data['order_place'];
+//
+//        $presentIdea->save();
         $presentIdea->update($data);
+
 
         return (new PresentIdeaResource($presentIdea))
             ->response()
             ->setStatusCode(Response::HTTP_OK);
     }
 
+    public function destroy(PresentIdea $presentIdea)
+    {
+
+        $this->authorize('delete', $presentIdea);
+        $presentIdea->delete();
+
+        return response([], Response::HTTP_NO_CONTENT);
+    }
+
     public function vote(PresentIdea $presentIdea)
     {
         $this->authorize('vote', $presentIdea);
-
-//        dd(request()->all());
-//        $data = request()->call();
 
         $user = request()->user();
         $presentIdea = PresentIdea::find(request()->present_idea_id);

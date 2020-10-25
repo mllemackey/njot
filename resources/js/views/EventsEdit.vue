@@ -9,23 +9,27 @@
             <InputField name="name" label="Event Name" type="text"
                         placeholder="Event Name" @update:field="data.name = $event" :errors="errors" :data="form.name"/>
             <InputField name="description" label="Event Description" type="text"
-                        placeholder="Event Description" @update:field="data.description = $event" :errors="errors" :data="form.description"/>
+                        placeholder="Event Description" @update:field="data.description = $event" :errors="errors"
+                        :data="form.description"/>
             <InputField name="beneficier" label="Event Beneficier" type="text"
-                        placeholder="Event Beneficier" @update:field="data.beneficier = $event" :errors="errors" :data="form.beneficier"/>
+                        placeholder="Event Beneficier" @update:field="data.beneficier = $event" :errors="errors"
+                        :data="form.beneficier"/>
             <InputField name="date" label="Date" type="text"
                         placeholder="MM/DD/YYYY" @update:field="data.date = $event" :errors="errors" :data="form.date"/>
             <InputField name="amount" label="Amount" type="text"
                         placeholder="Amount" @update:field="data.amount = $event" :errors="errors" :data="form.amount"/>
 
-            <input type="radio" id="private" name="privacy" value="0" v-model="form.privacy" @change="data.privacy = form.privacy">
+            <input type="radio" id="private" name="privacy" value="0" v-model="form.privacy"
+                   @change="data.privacy = form.privacy">
             <label for="private">Private</label>
-            <input type="radio" id="public" name="privacy" value="1" v-model="form.privacy" class="ml-3" @change="data.privacy = form.privacy">
+            <input type="radio" id="public" name="privacy" value="1" v-model="form.privacy" class="ml-3"
+                   @change="data.privacy = form.privacy">
             <label for="public">Public</label><br>
 
             <div class="relative pb-4">
                 <label for="image" class="pt-2 uppercase text-xs font-bold absolute">Image</label>
                 <input id="image" type="file" v-on:change="(e) => {this.onChangeFileUpload(e)}"
-                       class="pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400" />
+                       class="pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400"/>
             </div>
 
             <div class="flex justify-end">
@@ -65,7 +69,7 @@ export default {
                 this.form = response.data.data;
             })
             .catch(errors => {
-                if( errors.response.status === 404){
+                if (errors.response.status === 404) {
                 }
             })
     },
@@ -80,20 +84,18 @@ export default {
                 const [key, value] = entry;
                 formData.append(key, value)
             });
-            formData.append( '_method', 'PUT' );
+            formData.append('_method', 'PUT');
 
             axios.post('events/' + this.$route.params.id, formData, {
                 headers: {
                     'content-type': 'multipart/form-data'
                 }
-            })
-                .then(response => {
-                    console.log(response.data)
-                    this.$router.push(response.data.links.self)
-                })
-                .catch(errors => {
+            }).then(response => {
+                console.log(response.data)
+                this.$router.push(response.data.self_link)
+            }).catch(errors => {
 
-                });
+            });
         }
     }
 
