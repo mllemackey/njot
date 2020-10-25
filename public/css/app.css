@@ -21297,11 +21297,7 @@ video {
 
 html {
   font-family: "Lato", sans-serif;
-}
-
-body {
-  color: #545a6d;
-  background-color: #f8f8fb;
+  font-size: 15px;
 }
 
 .app-logo {
@@ -21327,10 +21323,33 @@ body {
   position: relative;
   word-wrap: break-word;
   background-color: #fff;
-  background-clip: border-box;
-  border: 0 solid #f6f6f6;
   border-radius: 0.25rem;
   padding: 1.25rem;
+}
+
+.card .border-b:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+button {
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.progress {
+  min-width: 35px;
+  background-color: #3490dc;
+  background-size: 40px 40px;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+option:checked, [selected] {
+  color: #fff !important;
+  background-color: #3490dc !important;
 }
 
 @media (min-width: 640px){

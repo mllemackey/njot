@@ -12,8 +12,8 @@
                             <p>{{ i.order_place }}</p>
                         </div>
                         <button v-if="i.can.vote" class="w-1/6 bg-blue-600 p-2 text-white text-sm rounded hover:bg-blue-400" @click="addVote(i.id)">
-                            <font-awesome-icon v-if="i.iVoted" :icon="['fas', 'heart']" class="text-red-500 text-base mr-2" />
-                            <font-awesome-icon v-else :icon="['fas', 'heart']" class="text-white text-base mr-2" />
+                            <font-awesome-icon v-if="i.iVoted" :icon="['fas', 'heart']" class="text-white text-base mr-2" />
+                            <font-awesome-icon v-else :icon="['fas', 'heart']" class="text-white text-base opacity-25 mr-2" />
                             ({{ i.voted }} votes)
                         </button>
                         <div v-else class="w-1/6 text-blue-600 p-2 text-center text-sm rounded">
@@ -28,19 +28,20 @@
                 Add New Present Idea
             </button>
         </div>
-        <div v-if="modal" class="absolute z-20 m-auto inset-0 -translate-y-1/2 top-1/2">
-            <div class="bg-blue-900 text-white rounded-lg p-8 w-64 my-0 mx-auto flex flex-col">
-                <h4>Add New Idea</h4>
-                <form @submit.prevent="addNewIdea" method="post">
-                    <label for="idea" class="pt-2 uppercase text-xs font-bold absolute text-blue-600">Idea</label>
+        <div v-if="modal" class="fixed flex justify-center items-center z-50 m-auto inset-0 -translate-y-1/2 top-1/2">
+            <div class="bg-blue-700 text-white rounded-lg p-8 w-full max-w-xl my-0 mx-auto flex flex-col">
+                <h4 class="mb-6 text-2xl bold">Add New Idea</h4>
+                <form @submit.prevent="addNewIdea" method="post" class="event-form">
+                    <label for="idea" class="pt-2 pl-4 pr-4 uppercase text-xs font-bold absolute text-gray-700">Idea</label>
                     <textarea name="idea" id="idea" v-model="form.idea"
-                              class="pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400"></textarea>
+                              class="pt-8 w-full text-gray-900 pb-2 focus:outline-none focus:border-blue-700 pl-4 pr-4 resize-none"></textarea>
                     <InputField name="order_place" label="Idea Order Place" type="text"
-                                placeholder="Idea Order Place" @update:field="form.order_place = $event"
+                                @update:field="form.order_place = $event"
+                                class="pt-8 w-full text-gray-700 pb-2 focus:outline-none focus:border-blue-700"
                                 :errors="errors"/>
 
                     <div class="flex justify-end">
-                        <button class="py-2 px-4 rounded text-red-700 border mr-5 hover:border-red-700"
+                        <button class="px-4 py-3 rounded text-sm font-bold text-white bg-red-500 mr-5"
                                 @click="modal = ! modal">Cancel
                         </button>
                         <button class="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400" @click="addNewIdea">
@@ -50,7 +51,7 @@
                 </form>
             </div>
         </div>
-        <div v-if="modal" class="bg-black opacity-25 absolute inset-0 z-10"
+        <div v-if="modal" class="bg-black opacity-75 fixed left-0 top-0 inset-0 z-40"
              @click="modal = ! modal"></div>
 
     </div>

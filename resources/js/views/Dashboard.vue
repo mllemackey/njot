@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Explore more Events!</h2>
+        <h2 class="py-6">Explore more Events!</h2>
         <div v-if="loader" class="loader">
             <img src="/uploads/svg/loading.svg" alt="loading"/>
         </div>

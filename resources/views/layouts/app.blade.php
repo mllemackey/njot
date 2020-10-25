@@ -20,7 +20,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100 text-gray-700">
 <?php //phpinfo(); ?>
     <div id="app">
 
