@@ -1,16 +1,24 @@
 <template>
-    <div class="card w-1/4">
+    <div class="card relative shadow-md mb-6 bg-white break-words p-4 md:p-5 rounded w-full md:w-1/4">
         <h2 class="text-2xl bold">Participants</h2>
-        <div class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll h-40 leading-normal">
+        <div class="border border-gray-200 bg-gray-100 p-3 mt-3 mb-0 md:mb-3 overflow-y-scroll h-48 leading-normal">
             <div v-for="p in eventUsers"
-            class="py-1">
+            class="py-2 border-b border-b-1 border-gray-300">
                 <span :class="{ 'font-bold text-blue-600' : p.id === event.admin.id }">{{ p.name }}
                     <sup class="text-blue-600" v-if="p.id === event.admin.id">admin</sup>
                 </span>
-                <button v-if="event.can.delete && p.id !== event.admin.id" @click="deleteUser(p)">X</button><br/>
+                <div class="text-sm mt-1">
+                    <button v-if="event.can.delete && p.id !== event.admin.id" @click="deleteUser(p)"
+                    class="mr-1 hover:text-blue-600">
+                        <font-awesome-icon icon="times" /> remove
+                    </button>
+                    <button class="hover:text-blue-600">
+                        <font-awesome-icon icon="dollar-sign" /> funded
+                    </button>
+                </div>
             </div>
         </div>
-        <div v-if="event.can.update">
+        <div v-if="event.can.update" class="mt-3">
             <h3 class="text-xl">Select users to be added:</h3>
             <label>
                 <select v-model="participants"

@@ -6,7 +6,7 @@
         <template v-else>
             <EventHeader :event="event" />
             <EventInfo :event="event" />
-            <div class="flex justify-around">
+            <div class="flex flex-col md:flex-row justify-around items-stretch">
                 <EventUsers :event="event" />
                 <EventIdeas :event="event" />
             </div>

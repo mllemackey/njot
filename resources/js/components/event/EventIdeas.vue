@@ -1,26 +1,26 @@
 <template>
-    <div class="w-3/4 pl-6">
-        <div class="card">
+    <div class="w-full md:w-3/4 pl-0 md:pl-6">
+        <div class="card relative shadow-md mb-6 bg-white break-words p-4 md:p-5 rounded ">
             <h2 class="text-2xl bold">Present Ideas</h2>
-            <div v-if="eventPresentIdeas.length === 0">No present ideas yet.</div>
-            <div v-else class="ideas border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll h-64">
+            <div v-if="eventPresentIdeas.length === 0" class="mb-3">No present ideas yet.</div>
+            <div v-else class="ideas border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll h-auto">
                 <div v-for="i in eventPresentIdeas" class="border-b border-gray-300 pb-4 my-2">
                     <h3 class="text-lg text-blue-600 bold">{{ i.user.name }}</h3>
-                    <div class="flex items-start">
-                        <div class="w-5/6  pr-6">
+                    <div class="flex flex-col md:flex-row items-start">
+                        <div class="w=full md:w-5/6 pr-0 md:pr-6 mb-3 md:mb-0">
                             <p>{{ i.idea }}</p>
                             <p>{{ i.order_place }}</p>
-                            <div v-if="i.can.update" class="mt-3">
-                                <button @click="openEditModal(i)" class="text-blue-600 underline mr-3">Edit</button>
-                                <button @click="deleteIdea(i.id)" class="text-blue-600 underline">Delete</button>
+                            <div v-if="i.can.update" class="mt-2 text-sm">
+                                <button @click="openEditModal(i)" class="text-blue-600 mr-3"><font-awesome-icon :icon="['fas', 'edit']" /> edit</button>
+                                <button @click="deleteIdea(i.id)" class="text-blue-600"><font-awesome-icon :icon="['fas', 'times']"  /> delete</button>
                             </div>
                         </div>
-                        <button v-if="i.can.vote" class="w-1/6 bg-blue-600 p-2 text-white text-sm rounded hover:bg-blue-400" @click="addVote(i.id)">
+                        <button v-if="i.can.vote" class="w-full md:w-1/6 bg-blue-600 p-2 text-white text-sm rounded hover:bg-blue-400" @click="addVote(i.id)">
                             <font-awesome-icon v-if="i.iVoted" :icon="['fas', 'heart']" class="text-white text-base mr-2" />
                             <font-awesome-icon v-else :icon="['fas', 'heart']" class="text-white text-base opacity-25 mr-2" />
                             ({{ i.voted }} votes)
                         </button>
-                        <div v-else class="w-1/6 text-blue-600 p-2 text-center text-sm rounded">
+                        <div v-else class="w-full md:w-1/6 text-blue-600 p-2 text-center text-sm rounded">
                             <font-awesome-icon :icon="['fas', 'heart']" class="text-blue-600 text-base mr-2" />
                             ({{ i.voted }} votes)
                         </div>
@@ -32,19 +32,19 @@
                 Add New Present Idea
             </button>
         </div>
-        <div v-if="modal" class="fixed flex justify-center items-center z-50 m-auto inset-0 -translate-y-1/2 top-1/2">
+        <div v-if="modal" class="fixed flex justify-center items-center z-50 m-auto px-3 inset-0 -translate-y-1/2 top-1/2">
             <div class="bg-blue-700 text-white rounded-lg p-8 w-full max-w-xl my-0 mx-auto flex flex-col">
                 <h4 class="mb-6 text-2xl bold">Add New Idea</h4>
                 <form @submit.prevent="edit_id ? editIdea : addNewIdea" method="post" class="event-form">
-                    <label for="idea" class="pt-2 pl-4 pr-4 uppercase text-xs font-bold absolute text-gray-700">Idea</label>
+                    <label for="idea" class="pt-2 pl-4 pr-4 uppercase text-xs font-bold absolute text-blue-600">Idea</label>
                     <textarea name="idea" id="idea" v-model="form.idea"
-                              class="pt-8 w-full text-gray-900 pb-2 focus:outline-none focus:border-blue-700 pl-4 pr-4 resize-none"></textarea>
-                    <label for="order_place" class="pt-2 uppercase text-xs font-bold absolute text-blue-600">Order Place</label>
+                              class="pt-8 w-full text-gray-900 pb-2 mb-1 focus:outline-none focus:border-blue-700 pl-4 pr-4 resize-none"></textarea>
+                    <label for="order_place" class="pt-2 pl-4 pr-4 uppercase text-xs font-bold absolute text-blue-600">Order Place</label>
                     <input name="order_place" type="text" id="order_place" v-model="form.order_place"
-                           class="pt-8 w-full text-gray-900 pb-2 focus:outline-none focus:border-blue-700" />
+                           class="pt-8 pl-4 pr-4 w-full text-gray-900 pb-2 focus:outline-none focus:border-blue-700" />
 
-                    <div class="flex justify-end">
-                        <button class="px-4 py-3 rounded text-sm font-bold text-white bg-red-500 mr-5"
+                    <div class="flex justify-end mt-3">
+                        <button class="px-4 py-3 rounded text-sm font-bold text-white bg-red-500 mr-2"
                                 @click="modal = ! modal">Cancel
                         </button>
                         <button v-if="edit_id != null" class="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400" @click="editIdea">

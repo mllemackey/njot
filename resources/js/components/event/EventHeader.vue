@@ -7,7 +7,7 @@
             <router-link :to="'/events/' + event.id + '/edit'" class="px-4 py-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75">Edit</router-link>
             <a href="#" class="px-4 py-3 rounded text-sm font-bold text-white bg-red-500" @click="modal = !modal">Delete</a>
 
-            <div v-if="modal" class="absolute bg-blue-900 text-white rounded-lg z-20 p-8 w-64 right-0 mt-2 mr-6">
+            <div v-if="modal" class="fixed bg-blue-900 text-white rounded-lg z-50 p-8 w-64 right-0 mt-2 mr-6">
                 <p>Are you sure you want to delete this record?</p>
 
                 <div class="flex items-center mt-6 justify-end">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="modal" class="bg-black opacity-25 absolute right-0 left-0 top-0 bottom-0 z-10" @click="modal = ! modal"></div>
+        <div v-if="modal" class="bg-black opacity-25 fixed right-0 left-0 top-0 bottom-0 z-40" @click="modal = ! modal"></div>
     </div>
 </template>
 

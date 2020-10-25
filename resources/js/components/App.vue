@@ -1,16 +1,16 @@
 <template>
-    <div class="main-content flex">
+    <div class="main-content flex flex-col md:flex-row">
         <Navigation></Navigation>
-        <div class="flex flex-col flex-1 ml-56">
-            <div class="nav-main flex h-16 px-6 items-center justify-between fixed w-full z-10 left-0 top-0 pl-56 bg-blue-700">
-                <div class="ml-6 font-bold text-xl">
+        <div class="flex flex-col flex-1 md:ml-56">
+            <div class="nav-main flex h-16 px-6 items-center justify-between md:fixed w-full z-10 left-0 top-0 pl-0 md:pl-56 bg-gray-100 md:bg-blue-700">
+                <div class="ml-4 mb:ml-6 font-bold text-xl text-blue-600 md:text-white">
                     {{ title }}
                 </div>
                 <router-link :to="'/users/' + user.id"  class="flex items-center">
                     <UserCircle :name="user.name"/>
                 </router-link>
             </div>
-            <div class="mb-20 md:mb-0 xl:ml-6 xl:mr-6 xl:pb-6 px-2 sm:px-4 xl:px-0 mt-24">
+            <div class="mb-4 xl:ml-6 xl:mr-6 xl:pb-6 px-4 xl:px-0 md:mt-24">
                 <router-view></router-view>
             </div>
         </div>

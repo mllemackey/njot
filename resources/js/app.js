@@ -7,9 +7,9 @@ import VueClipboard from 'vue-clipboard2'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faArrowLeft, faChevronLeft, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faArrowLeft, faChevronLeft, faHeart, faTimes, faCopy, faEdit, faDollarSign } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faArrowLeft, faChevronLeft, faHeart)
+library.add(faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faArrowLeft, faChevronLeft, faHeart, faTimes, faCopy, faEdit, faDollarSign)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

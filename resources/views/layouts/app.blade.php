@@ -23,7 +23,6 @@
 <body class="bg-gray-100 text-gray-700">
 <?php //phpinfo(); ?>
     <div id="app">
-
         <main class="h-screen">
             @yield('content')
         </main>

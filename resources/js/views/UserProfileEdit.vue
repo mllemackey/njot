@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="flex justify-between">
+    <div class="my-6">
+        <div class="flex justify-between my-3 mb-6">
             <div class="cursor-pointer" @click="$router.back()">
                 <font-awesome-icon :icon="['fas', 'arrow-left']" class="text-blue-600 mr-2" /> back
             </div>
@@ -18,7 +18,7 @@
                        class="pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400" />
             </div>
             <div class="flex justify-end">
-                <button class="px-4 py-3 rounded text-sm font-bold text-white bg-red-500 mr-5">Cancel</button>
+                <button class="px-4 py-3 rounded text-sm font-bold text-white bg-red-500 mr-2">Cancel</button>
                 <button class="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400">Save</button>
             </div>
         </form>
