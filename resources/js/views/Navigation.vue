@@ -33,6 +33,11 @@
                     <div class="pl-3">My Events</div>
                 </router-link>
 
+                <router-link to="/administrated-events" class="flex items-center py-2 hover:text-blue-600 text-base">
+                    <font-awesome-icon :icon="['fas', 'birthday-cake']" class="text-blue-600" />
+                    <div class="pl-3">Administrated Events</div>
+                </router-link>
+
                 <router-link to="/calendar" class="flex items-center py-2 hover:text-blue-600 text-base">
                     <font-awesome-icon :icon="['fas', 'calendar-alt']" class="text-blue-600" />
                     <div class="pl-3">Calendar</div>

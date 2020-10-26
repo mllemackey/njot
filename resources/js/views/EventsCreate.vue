@@ -69,19 +69,10 @@ export default {
             data.append('name', this.form.name)
             data.append('privacy', this.form.privacy)
 
-            this.createEvent(data)
-
-            // axios.post('events', data, {
-            //     headers: {
-            //         'content-type': 'multipart/form-data'
-            //     }
-            // })
-            // .then(response => {
-            //     this.$router.push(response.data.links.self)
-            // })
-            // .catch(errors => {
-            //
-            // });
+            this.createEvent(data).then(response => {
+                console.log(response.data)
+                this.$router.push(response.data.self_link)
+            });
         }
     }
 

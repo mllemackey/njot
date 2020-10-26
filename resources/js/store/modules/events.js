@@ -18,6 +18,9 @@ const getters = {
     publicEvents: state => {
         return state.events.filter(event => event.privacy === 1)
     },
+    administratedEvents: state => {
+        return state.events.filter(event => event.admin.id === 1)
+    },
     eventUsers: state => {
         return state.event.users
     },
@@ -82,6 +85,17 @@ const actions = {
             })
         });
     },
+    updateFunding: ({dispatch, commit}, payload) => {
+        return new Promise((resolve, reject) => {
+            axios.put('events/' + payload.id + '/funding', payload.data ).then(response => {
+                commit('setEvent', response.data.data)
+
+                resolve(response.data)
+            }).catch(error => {
+                reject(error)
+            })
+        });
+    },
     deleteEventUsers: ({dispatch, commit}, payload) => {
         return new Promise((resolve, reject) => {
             axios.put('events/' + payload.id + '/users', payload.data ).then(response => {
@@ -101,7 +115,7 @@ const actions = {
                 }
             })
                 .then(response => {
-                    this.$router.push(response.self_link)
+                    resolve(response.data)
                 })
                 .catch(errors => {
 

@@ -20,7 +20,7 @@ class EventsController extends Controller
     public function userEvents()
     {
         $this->authorize('viewAny', Event::class);
-        $events = request()->user()->events->merge(request()->user()->myEvents);
+        $events = request()->user()->events;
 
         return EventResource::collection($events);
     }
@@ -36,8 +36,7 @@ class EventsController extends Controller
             $data['image'] = $request->image->store('/uploads/images');
         }
 
-        $event = $request->user()->events()->create($data);
-        $event->users()->attach($data['user_id']);
+        $event = $request->user()->myEvents()->create($data);
 
         return (new EventResource($event))
             ->response()
@@ -70,7 +69,7 @@ class EventsController extends Controller
 
     public function addUsers(Event $event)
     {
-//        $this->authorize('update', $event);
+        $this->authorize('update', $event);
 
         $data = collect(request()->all())->pluck('id');
 
@@ -98,6 +97,20 @@ class EventsController extends Controller
             ->setStatusCode(Response::HTTP_OK);
     }
 
+    public function updateFunding(Event $event)
+    {
+        $this->authorize('update', $event);
+
+        $data = request()->all();
+        $currentFund = $event->users()->find($data['userId'])->pivot->funded;
+
+        $event->users()->updateExistingPivot($data['userId'], ['funded' => !$currentFund]);
+
+        return (new EventResource($event))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
+    }
+
     public function destroy(Event $event)
     {
 
@@ -106,6 +119,8 @@ class EventsController extends Controller
 
         return response([], Response::HTTP_NO_CONTENT);
     }
+
+
 
     public function validateData()
     {

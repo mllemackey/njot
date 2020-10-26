@@ -6,7 +6,7 @@
         <div v-else>
             <div v-if="userEvents && userEvents.length === 0">No events yet. <a href="/events/create">Get Started</a></div>
 
-            <div v-for="event in userEvents">
+            <div v-for="event in eventsToShow">
                 <router-link :to="'/events/' + event.id">
                     <EventInfo :event="event"/>
                 </router-link>
@@ -24,22 +24,23 @@ export default {
     components: {
         EventInfo
     },
+    props: [
+        'api'
+    ],
     computed: {
-        ...mapGetters(['loader', 'userEvents'])
+        eventsToShow(){
+            let array = {
+                'publicEvents': this.publicEvents,
+                'userEvents': this.userEvents,
+                'administratedEvents': this.administratedEvents,
+            }
+
+            return array[this.api]
+        },
+        ...mapGetters(['loader', 'publicEvents', 'userEvents', 'administratedEvents'])
     },
     mounted() {
-        // axios.get(this.api)
-        //     .then(response => {
-        //
-        //         this.events = response.data.data ? response.data.data : response.data;
-        //
-        //         this.loading = false;
-        //     })
-        //     .catch(error => {
-        //         this.loading = false;
-        //
-        //         alert('Unable to fetch events');
-        //     })
+
     }
 }
 </script>

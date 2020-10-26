@@ -16,10 +16,11 @@ export default new VueRouter({
     routes: [
         {
             path: '/',
-            component: Dashboard,
+            component: EventsList,
             meta: {
                 title: 'Welcome to Njot'
-            }
+            },
+            props: { api: 'publicEvents' }
         },
         {
             path: '/events',
@@ -27,7 +28,15 @@ export default new VueRouter({
             meta: {
                 title: 'My Events'
             },
-            props: { api: 'events/' }
+            props: { api: 'userEvents' }
+        },
+        {
+            path: '/administrated-events',
+            component: EventsList,
+            meta: {
+                title: 'Administrated Events'
+            },
+            props: { api: 'administratedEvents' }
         },
         {
             path: '/calendar',

@@ -1,22 +1,33 @@
 <template>
     <div class="card relative shadow-md mb-6 bg-white break-words p-4 md:p-5 rounded w-full md:w-1/4">
         <h2 class="text-2xl bold">Participants</h2>
-        <div class="border border-gray-200 bg-gray-100 p-3 mt-3 mb-0 md:mb-3 overflow-y-scroll h-48 leading-normal">
+        <div v-if="eventUsers && eventUsers.length !== 0"
+             class="border border-gray-200 bg-gray-100 p-3 mt-3 mb-0 md:mb-3 overflow-y-scroll h-48 leading-normal">
+            <span class="font-bold text-blue-600">{{ event.admin.name }}
+                    <sup class="text-blue-600">admin</sup>
+                </span>
             <div v-for="p in eventUsers"
-            class="py-2 border-b border-b-1 border-gray-300">
+                 class="py-2 border-b border-b-1 border-gray-300">
                 <span :class="{ 'font-bold text-blue-600' : p.id === event.admin.id }">{{ p.name }}
                     <sup class="text-blue-600" v-if="p.id === event.admin.id">admin</sup>
                 </span>
-                <div class="text-sm mt-1">
-                    <button v-if="event.can.delete && p.id !== event.admin.id" @click="deleteUser(p)"
-                    class="mr-1 hover:text-blue-600">
-                        <font-awesome-icon icon="times" /> remove
+                <div v-if="event.can.delete && p.id !== event.admin.id" class="text-sm mt-1">
+                    <button @click="deleteUser(p)"
+                            class="mr-1 hover:text-blue-600">
+                        <font-awesome-icon icon="times"/>
+                        remove
                     </button>
-                    <button class="hover:text-blue-600">
-                        <font-awesome-icon icon="dollar-sign" /> funded
+                    <button class="hover:text-blue-600"
+                            @click="markUserFunded(p)"
+                            :title="p.pivot.funded ? 'mark not funded' : 'mark funded'">
+                        <font-awesome-icon icon="dollar-sign"/>
+                        {{ p.pivot.funded ? 'funded' : 'not funded' }}
                     </button>
                 </div>
             </div>
+        </div>
+        <div v-else>
+            <p>No participants yet.</p>
         </div>
         <div v-if="event.can.update" class="mt-3">
             <h3 class="text-xl">Select users to be added:</h3>
@@ -26,12 +37,14 @@
                         class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll w-full h-40 leading-normal"
                 >
                     <option v-for="option in nonparticipants" :value="option"
-                    class="py-1">
+                            class="py-1">
                         {{ option.name }}
                     </option>
                 </select>
             </label>
-        <button class="py-3 px-4 my-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75" @click="updateSelectedTags">Add Participants</button>
+            <button class="py-3 px-4 my-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75"
+                    @click="updateSelectedTags">Add Participants
+            </button>
         </div>
     </div>
 </template>
@@ -52,14 +65,16 @@ export default {
     computed: {
         ...mapGetters(['users', 'eventUsers']),
         nonparticipants() {
-            return this.users.filter(({id}) => !this.eventUsers.find(o => o.id == id));
-        },
-
+            return this.users.filter(({id}) => !this.eventUsers.find(o => o.id == id))
+                .filter(({id}) => {
+                    return this.event.admin.id !== id
+                });
+        }
     },
     mounted() {
     },
     methods: {
-        ...mapActions(['addEventUsers', 'deleteEventUsers']),
+        ...mapActions(['addEventUsers', 'deleteEventUsers', 'updateFunding']),
         updateSelectedTags() {
             this.addEventUsers({
                 id: this.$route.params.id,
@@ -72,6 +87,14 @@ export default {
             this.deleteEventUsers({
                 id: this.$route.params.id,
                 data: userArray
+            })
+        },
+        markUserFunded(user) {
+            this.updateFunding({
+                id: this.$route.params.id,
+                data: {
+                    'userId': user.id
+                }
             })
         }
     }

@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/events/{event}', 'EventsController@update');
     Route::post('/events/{event}/users', 'EventsController@addUsers');
     Route::put('/events/{event}/users', 'EventsController@deleteUsers');
+    Route::put('/events/{event}/funding', 'EventsController@updateFunding');
     Route::delete('/events/{event}', 'EventsController@destroy');
 
     Route::get('/users',  'UsersController@index');
