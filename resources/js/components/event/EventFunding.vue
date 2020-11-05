@@ -20,11 +20,6 @@
                 {{ event.admin.bank_account }} <font-awesome-icon icon="copy" class="text-blue-600" />
             </button>
         </div>
-        <div>
-            <button>
-
-            </button>
-        </div>
     </div>
 </template>
 
@@ -44,7 +39,7 @@ export default {
     computed: {
         ...mapGetters(['eventUsers', 'eventUsersFunded']),
         funded(){
-                return ((this.eventUsersFunded.length * 100) / this.eventUsers.length).toFixed(2)
+                return ((this.eventUsersFunded.length * 100) / this.eventUsers.length).toFixed(0)
         }
     },
     methods: {

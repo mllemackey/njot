@@ -1,12 +1,15 @@
 <template>
     <div class="event-show">
         <div v-if="loader" class="loader">
-            <img src="/uploads/svg/loading.svg" alt="loading"/>
+            <img src="/uploads/svg/loading.svg"
+                 alt="loading"
+            />
         </div>
         <template v-else>
             <EventHeader :event="event" />
             <EventInfo :event="event" />
-            <div class="flex flex-col md:flex-row justify-around items-stretch">
+            <div class="flex flex-col md:flex-row
+                justify-around items-stretch">
                 <EventUsers :event="event" />
                 <EventIdeas :event="event" />
             </div>
@@ -44,18 +47,6 @@ export default {
     },
     mounted() {
         this.getEvent(this.$route.params.id)
-        // axios.get('events/' + this.$route.params.id)
-        //     .then(response => {
-        //         this.event = response.data.data;
-        //         this.loading = false
-        //     })
-        //     .catch(error => {
-        //         this.loading = false
-        //
-        //         if( error.response.status === 404){
-        //             this.$router.push('/events')
-        //         }
-        //     })
 
     },
     methods: {

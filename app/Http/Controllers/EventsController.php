@@ -17,14 +17,6 @@ class EventsController extends Controller
         return EventResource::collection(Event::all());
     }
 
-    public function userEvents()
-    {
-        $this->authorize('viewAny', Event::class);
-        $events = request()->user()->events;
-
-        return EventResource::collection($events);
-    }
-
     public function store(Request $request)
     {
         $this->authorize('create', Event::class);
@@ -65,6 +57,14 @@ class EventsController extends Controller
         return (new EventResource($event))
             ->response()
             ->setStatusCode(Response::HTTP_OK);
+    }
+
+    public function userEvents()
+    {
+        $this->authorize('viewAny', Event::class);
+        $events = request()->user()->events;
+
+        return EventResource::collection($events);
     }
 
     public function addUsers(Event $event)

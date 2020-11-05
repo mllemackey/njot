@@ -23,7 +23,7 @@
                 </div>
                 <div class="w-full md:w-1/5 px-4 pb-3">
                     <p class="font-bold uppercase text-sm mb-1">Amount</p>
-                    <p class="text-sm">{{ event.amount }}</p>
+                    <p class="text-sm">{{ event.amount }} RSD</p>
                 </div>
             </div>
         </div>

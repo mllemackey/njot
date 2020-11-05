@@ -14,9 +14,9 @@ library.add(faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faA
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 require('./bootstrap');
+Vue.use(VueClipboard)
 
 Vue.use(Vuex)
-Vue.use(VueClipboard)
 
 const app = new Vue({
     el: '#app',

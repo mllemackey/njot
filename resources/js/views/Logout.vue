@@ -6,7 +6,7 @@
 export default {
     name: "Logout",
     created() {
-        axios.post('/logout', {})
+        axios.get('/logout', {})
         .finally(err => {
             window.location = '/login';
         })

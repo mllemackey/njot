@@ -3,7 +3,7 @@
         <div class="cursor-pointer" @click="$router.back()">
             <font-awesome-icon :icon="['fas', 'arrow-left']" class="text-blue-600 mr-2" /> back
         </div>
-        <div class="relative">
+        <div v-if="event.can.update" class="relative">
             <router-link :to="'/events/' + event.id + '/edit'" class="px-4 py-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75">Edit</router-link>
             <a href="#" class="px-4 py-3 rounded text-sm font-bold text-white bg-red-500" @click="modal = !modal">Delete</a>
 

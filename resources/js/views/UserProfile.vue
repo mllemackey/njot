@@ -13,9 +13,9 @@
                 <p class="capitalize">{{ user.name }}</p>
             </div>
             <div class="w-full md:w-1/5 px-4 py-6">
-                <p class="font-bold uppercase text-sm">Description</p>
+                <p class="font-bold uppercase text-sm">Email</p>
                 <p v-if="user.email">{{ user.email }}</p>
-                <p v-else class="text-gray-400">No description</p>
+                <p v-else class="text-gray-400">No email</p>
             </div>
             <div class="w-full md:w-1/5 px-4 py-6">
                 <p class="font-bold uppercase text-sm">Bank Account</p>

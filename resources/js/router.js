@@ -15,14 +15,6 @@ Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
         {
-            path: '/',
-            component: EventsList,
-            meta: {
-                title: 'Welcome to Njot'
-            },
-            props: { api: 'publicEvents' }
-        },
-        {
             path: '/events',
             component: EventsList,
             meta: {
@@ -30,35 +22,7 @@ export default new VueRouter({
             },
             props: { api: 'userEvents' }
         },
-        {
-            path: '/administrated-events',
-            component: EventsList,
-            meta: {
-                title: 'Administrated Events'
-            },
-            props: { api: 'administratedEvents' }
-        },
-        {
-            path: '/calendar',
-            component: Calendar,
-            meta: {
-                title: 'Calendar'
-            }
-        },
-        {
-            path: '/users/:id',
-            component: UserProfile,
-            meta: {
-                title: 'User Profile'
-            }
-        },
-        {
-            path: '/users/:id/edit',
-            component: UserProfileEdit,
-            meta: {
-                title: 'Edit User Profile'
-            }
-        },
+
         {
             path: '/events/create',
             component: EventsCreate,
@@ -81,8 +45,45 @@ export default new VueRouter({
             }
         },
         {
+            path: '/',
+            component: EventsList,
+            meta: {
+                title: 'Welcome to Njot'
+            },
+            props: { api: 'publicEvents' }
+        },
+        {
+            path: '/administrated-events',
+            component: EventsList,
+            meta: {
+                title: 'Administrated Events'
+            },
+            props: { api: 'administratedEvents' }
+        },
+        {
+            path: '/users/:id',
+            component: UserProfile,
+            meta: {
+                title: 'User Profile'
+            }
+        },
+        {
+            path: '/users/:id/edit',
+            component: UserProfileEdit,
+            meta: {
+                title: 'Edit User Profile'
+            }
+        },
+        {
             path: '/logout',
             component: Logout
+        },
+        {
+            path: '/calendar',
+            component: Calendar,
+            meta: {
+                title: 'Calendar'
+            }
         },
         ],
     mode: 'history',
