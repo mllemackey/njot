@@ -19,9 +19,11 @@ class Event extends JsonResource
                 'id' => $this->id,
                 'admin' => $this->admin,
                 'name' => $this->name,
+                'title' => $this->name,
                 'description' => $this->description,
                 'beneficier' => $this->beneficier,
                 'date' => $this->date->format('m/d/Y'),
+                'startDate' => $this->date->format('Y-m-d H:H:H'),
                 'amount' => $this->amount,
                 'image' => $this->image,
                 'users' => $this->users,
@@ -29,7 +31,8 @@ class Event extends JsonResource
                 'presentIdeas' => $this->presentIdeas,
                 'can' => $this->permissions(),
                 'updated_at' => $this->updated_at->diffForHumans(),
-                'self_link' => $this->path()
+                'self_link' => $this->path(),
+                'url' => $this->path()
         ];
     }
 

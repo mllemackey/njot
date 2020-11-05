@@ -4,6 +4,7 @@ import router from './router'
 import App from "./components/App";
 import store from "./store/store";
 import VueClipboard from 'vue-clipboard2'
+import VueCalendar from 'vue-simple-calendar'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -15,6 +16,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 require('./bootstrap');
 Vue.use(VueClipboard)
+Vue.component('VueCalendar', VueCalendar)
 
 Vue.use(Vuex)
 

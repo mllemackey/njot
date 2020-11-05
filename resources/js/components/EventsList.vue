@@ -4,9 +4,10 @@
             <img src="/uploads/svg/loading.svg" alt="loading"/>
         </div>
         <div v-else>
-            <div v-if="userEvents && userEvents.length === 0">No events yet. <a href="/events/create">Get Started</a></div>
+            <input type="text" v-model="search" placeholder="Search event"/>
+            <div v-if="filteredList.length === 0">No events found. <a href="/events/create">Create new one!</a></div>
 
-            <div v-for="event in eventsToShow">
+            <div v-for="event in filteredList">
                 <router-link :to="'/events/' + event.id">
                     <EventInfo :event="event"/>
                 </router-link>
@@ -27,6 +28,11 @@ export default {
     props: [
         'api'
     ],
+    data: function () {
+        return {
+            search: ""
+        }
+    },
     computed: {
         eventsToShow(){
             let array = {
@@ -36,6 +42,12 @@ export default {
             }
 
             return array[this.api]
+        },
+        filteredList() {
+            return this.eventsToShow.filter(event => {
+                return event.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                    event.beneficier.toLowerCase().includes(this.search.toLowerCase())
+            })
         },
         ...mapGetters(['loader', 'publicEvents', 'userEvents', 'administratedEvents'])
     },

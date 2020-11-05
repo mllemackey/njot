@@ -19,12 +19,16 @@ const getters = {
         return state.events.filter(event => event.privacy === 1)
     },
     administratedEvents: state => {
+        if(!state.events)
+            return []
         return state.events.filter(event => event.admin.id === 1)
     },
     eventUsers: state => {
         return state.event.users
     },
     eventUsersFunded: state => {
+        if(!state.event || !state.event.users)
+            return []
         return state.event.users.filter(user => user.pivot.funded === 1)
     },
     eventsPresentIdeas: state => {

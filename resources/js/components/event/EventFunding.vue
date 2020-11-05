@@ -13,11 +13,11 @@
             <button
                 :title="tooltip"
                 class="cursor-pointer text-xl hover:text-blue-600"
-                v-clipboard:copy="event.admin.bank_account"
+                v-clipboard:copy="bankAccount"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
             >
-                {{ event.admin.bank_account }} <font-awesome-icon icon="copy" class="text-blue-600" />
+                {{ bankAccount }} <font-awesome-icon icon="copy" class="text-blue-600" />
             </button>
         </div>
     </div>
@@ -39,7 +39,14 @@ export default {
     computed: {
         ...mapGetters(['eventUsers', 'eventUsersFunded']),
         funded(){
-                return ((this.eventUsersFunded.length * 100) / this.eventUsers.length).toFixed(0)
+            if(!this.eventUsersFunded || !this.eventUsers)
+                return []
+            return ((this.eventUsersFunded.length * 100) / this.eventUsers.length).toFixed(0)
+        },
+        bankAccount(){
+            if(!this.event || !this.event.admin || !this.event.admin.bankAccount)
+                return ''
+            return this.event.admin.bank_account
         }
     },
     methods: {

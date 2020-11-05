@@ -8,9 +8,7 @@
                 </span>
             <div v-for="p in eventUsers"
                  class="py-2 border-b border-b-1 border-gray-300">
-                <span :class="{ 'font-bold text-blue-600' : p.id === event.admin.id }">{{ p.name }}
-                    <sup class="text-blue-600" v-if="p.id === event.admin.id">admin</sup>
-                </span>
+                <span>{{ p.name }} ({{ p.email }})</span>
                 <div v-if="event.can.delete && p.id !== event.admin.id" class="text-sm mt-1">
                     <button @click="deleteUser(p)"
                             class="mr-1 hover:text-blue-600">
@@ -29,16 +27,17 @@
         <div v-else>
             <p>No participants yet.</p>
         </div>
-        <div v-if="event.can.update" class="mt-3">
+        <div v-if="canUpdateEvent" class="mt-3">
             <h3 class="text-xl">Select users to be added:</h3>
+            <input type="text" v-model="search" placeholder="Search by name or email"/>
             <label>
                 <select v-model="participants"
                         multiple
                         class="border border-gray-200 bg-gray-100 p-3 my-3 overflow-y-scroll w-full h-40 leading-normal"
                 >
-                    <option v-for="option in nonparticipants" :value="option"
+                    <option v-for="option in filteredList" :value="option"
                             class="py-1">
-                        {{ option.name }}
+                        {{ option.name }} ({{ option.email }})
                     </option>
                 </select>
             </label>
@@ -59,16 +58,31 @@ export default {
     ],
     data: function () {
         return {
-            participants: []
+            participants: [],
+            search: ""
         }
     },
     computed: {
         ...mapGetters(['users', 'eventUsers']),
         nonparticipants() {
+            if (!this.users.length) {
+                return []
+            }
             return this.users.filter(({id}) => !this.eventUsers.find(o => o.id == id))
                 .filter(({id}) => {
                     return this.event.admin.id !== id
                 });
+        },
+        filteredList() {
+            return this.nonparticipants.filter(user => {
+                return user.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                    user.email.toLowerCase().includes(this.search.toLowerCase())
+            })
+        },
+        canUpdateEvent() {
+            if (!this.event || !this.event.can)
+                return false
+            return this.event.can.update
         }
     },
     mounted() {
