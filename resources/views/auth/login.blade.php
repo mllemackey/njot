@@ -48,6 +48,12 @@
                         Login
                     </button>
                 </div>
+                <div class="pt-8">
+                    <a href="/login/facebook"
+                            class="w-full bg-gray-400 py-2 px-3 text-left uppercase rounded text-blue-800 font-bold">
+                        Login with Facebook
+                    </a>
+                </div>
 
                 <div class="flex justify-between pt-8 text-white text-sm font-bold">
                     <a class="hover:text-blue-200" href="{{ route('password.request') }}">

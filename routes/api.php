@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/users',  'UsersController@index');
     Route::get('/users/{user}',  'UsersController@show');
     Route::put('/users/{user}',  'UsersController@update');
+    Route::post('/users/{user}/delete',  'UsersController@destroy');
 
     Route::get('/present-ideas',  'PresentIdeasController@index');
     Route::get('/present-ideas/{presentIdea}',  'PresentIdeasController@show');
@@ -36,5 +37,10 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/present-ideas/{presentIdea}',  'PresentIdeasController@update');
     Route::delete('/present-ideas/{presentIdea}',  'PresentIdeasController@destroy');
     Route::put('/present-ideas/{presentIdea}/votes', 'PresentIdeasController@vote');
+
+    Route::get('/me/notifications', 'UserNotificationsController@index');
+//    Route::get('notification-types', 'NotificationTypeController@index');
+    Route::put('notifications/read-all', 'UserNotificationsController@readAll');
+    Route::put('notifications/{id}/read', 'UserNotificationsController@read');
 
 });

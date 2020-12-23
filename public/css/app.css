@@ -21346,6 +21346,22 @@ option:checked, [selected] {
   margin-bottom: 5px;
 }
 
+#notification-modal {
+  width: 400px;
+}
+
+#notification-modal::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  position: absolute;
+  top: -10px;
+  right: 38px;
+}
+
 @media (min-width: 640px){
   .sm\:container{
     width: 100%;

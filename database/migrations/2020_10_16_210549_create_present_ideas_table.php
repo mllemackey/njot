@@ -15,8 +15,8 @@ class CreatePresentIdeasTable extends Migration
     {
         Schema::create('present_ideas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('event_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('event_id')->constrained()->onDelete('cascade');
             $table->text('idea');
             $table->text('order_place');
             $table->timestamps();

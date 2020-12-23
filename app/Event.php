@@ -33,4 +33,13 @@ class Event extends Model
         return $this->hasMany(PresentIdea::class);
     }
 
+    public function isFunded(){
+        foreach($this->users as $user){
+            if($user->pivot->funded === 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

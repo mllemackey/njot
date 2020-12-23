@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\Http\Resources\Event as EventResource;
+use App\Notifications\EventFunded;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpFoundation\Response;
 
 class EventsController extends Controller
@@ -105,6 +108,10 @@ class EventsController extends Controller
         $currentFund = $event->users()->find($data['userId'])->pivot->funded;
 
         $event->users()->updateExistingPivot($data['userId'], ['funded' => !$currentFund]);
+
+        if($event->isFunded()){
+            Notification::send($event->users, new EventFunded($event));
+        }
 
         return (new EventResource($event))
             ->response()

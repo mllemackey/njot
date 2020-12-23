@@ -81,7 +81,7 @@ class EventsTest extends TestCase
         $response->assertStatus(Response::HTTP_CREATED);
         $response->assertJson([
             'id' => $event->id,
-            'self_link' => $event->path()
+            'url' => $event->path()
         ]);
 
 
@@ -164,7 +164,7 @@ class EventsTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJson([
             'id' => $event->id,
-            'self_link' => $event->path()
+            'url' => $event->path()
         ]);
 
     }

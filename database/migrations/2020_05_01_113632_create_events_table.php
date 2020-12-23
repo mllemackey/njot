@@ -15,13 +15,13 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('beneficier');
             $table->timestamp('date');
             $table->string('amount');
-            $table->string('image')->nullable()->default('uploads/images/default.jpg');
+            $table->string('image')->default('uploads/images/default.jpg');
             $table->boolean('privacy')->default(false);
             $table->timestamps();
         });

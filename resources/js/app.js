@@ -8,9 +8,9 @@ import VueCalendar from 'vue-simple-calendar'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faArrowLeft, faChevronLeft, faHeart, faTimes, faCopy, faEdit, faDollarSign } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faArrowLeft, faChevronLeft, faHeart, faTimes, faCopy, faEdit, faDollarSign, faBell } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faArrowLeft, faChevronLeft, faHeart, faTimes, faCopy, faEdit, faDollarSign)
+library.add(faPlus, faBirthdayCake, faCalendar, faCalendarAlt, faSignOutAlt, faArrowLeft, faChevronLeft, faHeart, faTimes, faCopy, faEdit, faDollarSign, faBell)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

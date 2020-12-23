@@ -9,10 +9,10 @@ use Faker\Generator as Faker;
 $factory->define(Event::class, function (Faker $faker) {
     return [
         'user_id' => User::all()->isNotEmpty() ? User::all()->random()->id : factory(User::class),
-        'name' => $faker->name,
+        'name' => ucfirst($faker->word . " " . $faker->word),
         'description' => $faker->text,
         'beneficier' => $faker->name,
-        'date' => '10/27/1990',
+        'date' => $faker->dateTimeBetween('-1 month'),
         'amount' => $faker->numberBetween(1, 50),
         'privacy' => $faker->boolean
     ];

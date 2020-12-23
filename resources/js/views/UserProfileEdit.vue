@@ -12,9 +12,16 @@
                         placeholder="User Email" @update:field="data.email = $event" :errors="errors" :data="form.email"/>
             <InputField name="company" label="Bank Account"
                         placeholder="Bank Account" @update:field="data.bank_account = $event" :errors="errors" :data="form.bank_account"/>
+            <div class="bg-white w-full text-gray-900 border-b pb-2 pl-4 pr-4 focus:outline-none focus:border-blue-400">
+                <label class="pt-2 block pr-4 pb-2 uppercase text-xs font-bold">Notifications</label>
+                <input type="checkbox" id="mail" value="mail" v-model="form.notification_preference"  :change="onChangeNotificationPreference()">
+                <label for="mail" class="mr-2">Mail</label>
+                <input type="checkbox" id="database" value="database" v-model="form.notification_preference" :change="onChangeNotificationPreference()">
+                <label for="database">Database</label>
+            </div>
             <div class="relative pb-4">
                 <label for="image" class="pt-2 uppercase text-xs font-bold absolute">Image</label>
-                <input id="image" type="file" v-on:change="(e) => {this.onChangeFileUpload(e)}"
+                <input id="image" type="file" :change="(e) => {this.onChangeFileUpload(e)}"
                        class="pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400" />
             </div>
             <div class="flex justify-end">
@@ -39,6 +46,7 @@ export default {
                 'name': '',
                 'email': '',
                 'bank_account': '',
+                'notification_preference': [],
                 'image': '',
             },
             data: {},
@@ -48,19 +56,19 @@ export default {
     mounted() {
         axios.get('users/' + this.$route.params.id)
             .then(response => {
-                console.log(response.data)
+
                 this.form = response.data;
             })
             .catch(error => {
 
-                // if( error.response.status === 404){
-                //     this.$router.push('/users/' + this.$route.params.id)
-                // }
             })
     },
     methods: {
         onChangeFileUpload(e) {
             this.data.image = e.target.files[0];
+        },
+        onChangeNotificationPreference() {
+            this.data.notification_preference = this.form.notification_preference
         },
         submitForm: function () {
             let formData = new FormData()
@@ -72,7 +80,7 @@ export default {
             formData.append( '_method', 'PUT' );
 
             formData.forEach((value, key) => {
-                console.log(key, '-', value)
+                console.log(key, ' *** ', value)
             })
 
             axios.post('users/' + this.$route.params.id, formData, {
@@ -81,7 +89,6 @@ export default {
                 }
             })
                 .then(response => {
-                    console.log(response.data)
                     this.$router.push('/users/' + response.data.id)
                 })
                 .catch(errors => {

@@ -92,7 +92,7 @@ export default {
                 }
             }).then(response => {
                 console.log(response.data)
-                this.$router.push(response.data.self_link)
+                this.$router.push(response.data.url)
             }).catch(errors => {
 
             });

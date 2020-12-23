@@ -8,7 +8,8 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col justify-center items-center pt-3">
+        <div v-if="bankAccount"
+            class="flex flex-col justify-center items-center pt-3">
             <h3 class="text-lg text-blue-600">Fund Account</h3>
             <button
                 :title="tooltip"
@@ -39,12 +40,13 @@ export default {
     computed: {
         ...mapGetters(['eventUsers', 'eventUsersFunded']),
         funded(){
-            if(!this.eventUsersFunded || !this.eventUsers)
-                return []
-            return ((this.eventUsersFunded.length * 100) / this.eventUsers.length).toFixed(0)
+            if(this.eventUsersFunded.length === 0 || this.eventUsers.length === 0) {
+                return 0
+            }
+            return ((this.eventUsersFunded.length * 100) / this.eventUsers.length).toFixed(1)
         },
         bankAccount(){
-            if(!this.event || !this.event.admin || !this.event.admin.bankAccount)
+            if(!this.event || !this.event.admin || !this.event.admin.bank_account)
                 return ''
             return this.event.admin.bank_account
         }

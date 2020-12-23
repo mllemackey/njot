@@ -45,7 +45,7 @@
 
                 <p class="pt-12 text-gray-500 text-xs uppercase font-bold">Settings</p>
 
-                <router-link to="/logout-manual" class="flex items-center py-2 hover:text-blue-600 text-base">
+                <router-link to="/logout" class="flex items-center py-2 hover:text-blue-600 text-base">
                     <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="text-blue-600" />
                     <div class="pl-3">Logout</div>
                 </router-link>

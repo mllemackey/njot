@@ -1,31 +1,32 @@
 <template>
     <div class="card relative shadow-md mb-6 bg-white break-words p-4 md:p-5 rounded w-full md:w-1/4">
         <h2 class="text-2xl bold">Participants</h2>
-        <div v-if="eventUsers && eventUsers.length !== 0"
-             class="border border-gray-200 bg-gray-100 p-3 mt-3 mb-0 md:mb-3 overflow-y-scroll h-48 leading-normal">
-            <span class="font-bold text-blue-600">{{ event.admin.name }}
+        <p class="font-bold text-blue-600">{{ event.admin.name }}
                     <sup class="text-blue-600">admin</sup>
-                </span>
-            <div v-for="p in eventUsers"
-                 class="py-2 border-b border-b-1 border-gray-300">
-                <span>{{ p.name }} ({{ p.email }})</span>
-                <div v-if="event.can.delete && p.id !== event.admin.id" class="text-sm mt-1">
-                    <button @click="deleteUser(p)"
-                            class="mr-1 hover:text-blue-600">
-                        <font-awesome-icon icon="times"/>
-                        remove
-                    </button>
-                    <button class="hover:text-blue-600"
-                            @click="markUserFunded(p)"
-                            :title="p.pivot.funded ? 'mark not funded' : 'mark funded'">
-                        <font-awesome-icon icon="dollar-sign"/>
-                        {{ p.pivot.funded ? 'funded' : 'not funded' }}
-                    </button>
+                </p>
+        <div class="border border-gray-200 bg-gray-100 p-3 mt-3 mb-0 md:mb-3 overflow-y-scroll h-48 leading-normal">
+            <div v-if="eventUsers && eventUsers.length !== 0">
+                <div v-for="p in eventUsers"
+                     class="py-2 border-b border-b-1 border-gray-300">
+                    <span>{{ p.name }} ({{ p.email }})</span>
+                    <div v-if="event.can.delete && p.id !== event.admin.id" class="text-sm mt-1">
+                        <button @click="deleteUser(p)"
+                                class="mr-1 hover:text-blue-600">
+                            <font-awesome-icon icon="times"/>
+                            remove
+                        </button>
+                        <button class="hover:text-blue-600"
+                                @click="markUserFunded(p)"
+                                :title="p.pivot.funded ? 'mark not funded' : 'mark funded'">
+                            <font-awesome-icon icon="dollar-sign"/>
+                            {{ p.pivot.funded ? 'funded' : 'not funded' }}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div v-else>
-            <p>No participants yet.</p>
+            <div v-else>
+                <p>No participants yet.</p>
+            </div>
         </div>
         <div v-if="canUpdateEvent" class="mt-3">
             <h3 class="text-xl">Select users to be added:</h3>
@@ -65,7 +66,7 @@ export default {
     computed: {
         ...mapGetters(['users', 'eventUsers']),
         nonparticipants() {
-            if (!this.users.length) {
+            if (this.users.length === 0) {
                 return []
             }
             return this.users.filter(({id}) => !this.eventUsers.find(o => o.id == id))
@@ -74,6 +75,9 @@ export default {
                 });
         },
         filteredList() {
+            if (this.nonparticipants.length === 0) {
+                return []
+            }
             return this.nonparticipants.filter(user => {
                 return user.name.toLowerCase().includes(this.search.toLowerCase()) ||
                     user.email.toLowerCase().includes(this.search.toLowerCase())

@@ -16,12 +16,12 @@ const getters = {
         return state.event
     },
     publicEvents: state => {
+        if(!state.events)
+            return []
         return state.events.filter(event => event.privacy === 1)
     },
     administratedEvents: state => {
-        if(!state.events)
-            return []
-        return state.events.filter(event => event.admin.id === 1)
+        return state.events.filter(event => event.admin.id === window.user.id)
     },
     eventUsers: state => {
         return state.event.users

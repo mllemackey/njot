@@ -15,7 +15,9 @@ class AddedUserProfileFields extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->text('bank_account')->nullable();
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('notification_preference')->default('mail, database');
         });
     }
 

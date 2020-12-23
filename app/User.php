@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'api_token', 'image', 'bank_account'
+        'name', 'email', 'password', 'api_token', 'image', 'bank_account', 'provider_id', 'notification_preference'
     ];
 
     /**
@@ -36,6 +36,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getNotificationPreferenceAttribute($value){
+        return explode(',', $value);
+    }
+
+    public function getImageAttribute($value){
+        if (!$value)
+            return $value;
+        if(strpos($value, 'facebook'))
+            return $value;
+
+        return url('/') . '/' . $value;
+    }
+
+    /*** Relationships ***/
 
     public function events(){
         return $this->belongsToMany(Event::class)->withPivot('funded');

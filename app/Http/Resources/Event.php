@@ -31,7 +31,6 @@ class Event extends JsonResource
                 'presentIdeas' => $this->presentIdeas,
                 'can' => $this->permissions(),
                 'updated_at' => $this->updated_at->diffForHumans(),
-                'self_link' => $this->path(),
                 'url' => $this->path()
         ];
     }
