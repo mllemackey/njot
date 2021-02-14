@@ -33,11 +33,6 @@
                     <div class="pl-3">My Events</div>
                 </router-link>
 
-                <router-link to="/administrated-events" class="flex items-center py-2 hover:text-blue-600 text-base">
-                    <font-awesome-icon :icon="['fas', 'birthday-cake']" class="text-blue-600" />
-                    <div class="pl-3">Administrated Events</div>
-                </router-link>
-
                 <router-link to="/calendar" class="flex items-center py-2 hover:text-blue-600 text-base">
                     <font-awesome-icon :icon="['fas', 'calendar-alt']" class="text-blue-600" />
                     <div class="pl-3">Calendar</div>
@@ -45,10 +40,10 @@
 
                 <p class="pt-12 text-gray-500 text-xs uppercase font-bold">Settings</p>
 
-                <router-link to="/logout" class="flex items-center py-2 hover:text-blue-600 text-base">
+                <a href="/logout-manual" class="flex items-center py-2 hover:text-blue-600 text-base">
                     <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="text-blue-600" />
                     <div class="pl-3">Logout</div>
-                </router-link>
+                </a>
             </div>
         </nav>
     </div>

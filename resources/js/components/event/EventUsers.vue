@@ -28,9 +28,18 @@
                 <p>No participants yet.</p>
             </div>
         </div>
-        <div v-if="canUpdateEvent" class="mt-3">
+        <div v-if="event.privacy === 1 && !canUpdateEvent" class="mt-3">
+            <button v-if="!myEvent" class="py-3 px-4 my-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75"
+                    @click="enroll">Enroll
+            </button>
+            <button v-else class="py-3 px-4 my-3 rounded text-white bg-blue-600 text-sm mr-2 hover:opacity-75"
+                    @click="deleteUser(null)">Unenroll
+            </button>
+        </div>
+        <div v-if="canUpdateEvent" class="mt-6">
             <h3 class="text-xl">Select users to be added:</h3>
-            <input type="text" v-model="search" placeholder="Search by name or email"/>
+            <input type="text" v-model="search" placeholder="Search by name or email"
+                   class="p-3 border-b w-64 text-gray-900 border-b py-2 px-4 my-2 shadow-md focus:outline-none focus:border-blue-400" />
             <label>
                 <select v-model="participants"
                         multiple
@@ -87,6 +96,10 @@ export default {
             if (!this.event || !this.event.can)
                 return false
             return this.event.can.update
+        },
+        myEvent(){
+            return this.event.users.find( (user) => user.id === window.user.id)
+            // return this.event.use.find((user) => user.id === window.user.id)
         }
     },
     mounted() {
@@ -99,9 +112,16 @@ export default {
                 data: this.participants
             })
         },
+        enroll() {
+            this.addEventUsers({
+                id: this.$route.params.id,
+                data: [window.user]
+            })
+        },
         deleteUser(user) {
             let userArray = []
-            userArray.push(user)
+
+            userArray.push(user === null ? window.user : user)
             this.deleteEventUsers({
                 id: this.$route.params.id,
                 data: userArray

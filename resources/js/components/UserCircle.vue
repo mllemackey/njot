@@ -1,5 +1,5 @@
 <template>
-    <div class="user-circle rounded-full border border-blue-600 text-white md:text-blue-500 text-xs bg-blue-700 md:bg-white w-8 h-8 flex justify-center items-center">
+    <div class="user-circle rounded-full border border-blue-600 text-white md:text-blue-500 text-xs bg-blue-700 md:bg-white w-8 h-8 flex justify-center items-center hover:bg-blue-200 ">
         {{ userCircle }}
     </div>
 </template>

@@ -59,6 +59,18 @@ class EventPolicy
     }
 
     /**
+     * Determine whether the user can add users to the model.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Event  $event
+     * @return mixed
+     */
+    public function manageUsers(User $user, Event $event)
+    {
+        return $user->id == $event->user_id || $event->privacy === 1;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user

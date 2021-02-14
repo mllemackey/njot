@@ -1,6 +1,8 @@
 <template>
     <div class="event-info">
-        <div class="card relative shadow-md mb-6 bg-white break-words flex flex-col md:flex-row items-stretch p-0 md:p-5 rounded">
+        <div class="card relative shadow-md mb-6 bg-white break-words flex flex-col md:flex-row items-stretch p-0 md:p-5 rounded hover:bg-blue-100"
+        :class="{'border border-blue-500': administrated}">
+            <span v-if="administrated" class="absolute right-0 p-3 text-white bottom-0 m-3 bg-blue-500">admin</span>
             <div class="w-full h-64 md:w-64 md:h-64 bg-cover bg-center mb-6 md:mb-0" :style="{ 'background-image': 'url(' + '/' + event.image  + ')'}">
             </div>
             <div class="flex flex-col md:flex-row flex-1 justify-evenly items-stretch xl:pl-16">
@@ -41,8 +43,12 @@ export default {
     props: [
         'event'
     ],
-    mounted() {
-
+    computed: {
+        administrated(){
+            if(this.event && this.event.can)
+                return this.event.can.update
+            return false
+        }
     }
 }
 </script>

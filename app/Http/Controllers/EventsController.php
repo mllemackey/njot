@@ -31,7 +31,7 @@ class EventsController extends Controller
             $data['image'] = $request->image->store('/uploads/images');
         }
 
-        $event = $request->user()->myEvents()->create($data);
+        $event = $request->user()->events()->create($data);
 
         return (new EventResource($event))
             ->response()
@@ -65,14 +65,14 @@ class EventsController extends Controller
     public function userEvents()
     {
         $this->authorize('viewAny', Event::class);
-        $events = request()->user()->events;
+        $events = request()->user()->events()->simplePaginate(4);
 
         return EventResource::collection($events);
     }
 
     public function addUsers(Event $event)
     {
-        $this->authorize('update', $event);
+        $this->authorize('manageUsers', $event);
 
         $data = collect(request()->all())->pluck('id');
 
@@ -87,7 +87,7 @@ class EventsController extends Controller
 
     public function deleteUsers(Event $event)
     {
-        $this->authorize('update', $event);
+        $this->authorize('manageUsers', $event);
 
         $data = collect(request()->all())->pluck('id');
 

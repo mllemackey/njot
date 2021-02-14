@@ -22,7 +22,7 @@
                     <h4 class="font-bold text-xl">Notifications</h4>
                     <a @click="markAllUsersNotificationsRead" class="cursor-pointer">Mark All Read</a>
                 </div>
-                <div v-if="userNotifications.notifications && userNotifications.notifications.length === 0">
+                <div v-if="userNotifications.notifications && userNotifications.notifications.length === 0" class="px-8 ">
                     <p>No notifications</p>
                 </div>
                 <div v-else>

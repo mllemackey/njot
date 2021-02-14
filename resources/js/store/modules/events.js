@@ -16,12 +16,9 @@ const getters = {
         return state.event
     },
     publicEvents: state => {
-        if(!state.events)
-            return []
-        return state.events.filter(event => event.privacy === 1)
-    },
-    administratedEvents: state => {
-        return state.events.filter(event => event.admin.id === window.user.id)
+        // if(!state.events)
+        //     return []
+        return state.events.filter( (event) => { return (event.privacy === 1) })
     },
     eventUsers: state => {
         return state.event.users
@@ -59,7 +56,7 @@ const actions = {
             axios.get('events').then(response => {
                 commit('setEvents', response.data.data)
                 commit('updateLoader', false)
-                resolve(response)
+                resolve(response.data.data)
             }).catch(error => {
                 reject(error)
             })

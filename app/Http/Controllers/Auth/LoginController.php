@@ -25,7 +25,7 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *
+     *§
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
@@ -72,7 +72,7 @@ class LoginController extends Controller
         );
 
         auth()->login($user, true);
-        return redirect('/#');
+        return redirect('/');
     }
 
     public function deauthCallback()

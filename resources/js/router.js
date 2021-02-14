@@ -5,7 +5,6 @@ import EventsShow from "./views/EventsShow";
 import EventsEdit from "./views/EventsEdit";
 import Logout from "./views/Logout";
 import Calendar from "./views/Calendar";
-import Dashboard from "./views/Dashboard";
 import EventsList from "./components/EventsList";
 import UserProfile from "./views/UserProfile";
 import UserProfileEdit from "./views/UserProfileEdit";
@@ -51,14 +50,6 @@ export default new VueRouter({
                 title: 'Welcome to Njot'
             },
             props: { api: 'publicEvents' }
-        },
-        {
-            path: '/administrated-events',
-            component: EventsList,
-            meta: {
-                title: 'Administrated Events'
-            },
-            props: { api: 'administratedEvents' }
         },
         {
             path: '/users/:id',

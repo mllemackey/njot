@@ -39,7 +39,6 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/present-ideas/{presentIdea}/votes', 'PresentIdeasController@vote');
 
     Route::get('/me/notifications', 'UserNotificationsController@index');
-//    Route::get('notification-types', 'NotificationTypeController@index');
     Route::put('notifications/read-all', 'UserNotificationsController@readAll');
     Route::put('notifications/{id}/read', 'UserNotificationsController@read');
 

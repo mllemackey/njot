@@ -37,7 +37,7 @@ class EventFunded extends Notification
     public function via($notifiable)
     {
 
-        return explode(', ', $notifiable->notification_preference);
+        return $notifiable->notification_preference;
 
     }
 
@@ -66,8 +66,7 @@ class EventFunded extends Notification
     {
         return [
             'text' => "Event " . $this->event->name . " just got funded!",
-            'redirect_url' => '/events/' . $this->event->id,
-            ''
+            'redirect_url' => '/events/' . $this->event->id
         ];
     }
 }

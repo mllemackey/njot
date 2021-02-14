@@ -2,7 +2,7 @@
 <div class="flex flex-col flex-grow">
     <calendar-view
         :show-date="showDate"
-        :items="items"
+        :items="userEvents"
         itemTop="2.4em"
         @click-item="onClickItem"
     >
@@ -31,10 +31,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['userEvents', 'administratedEvents']),
-        items(){
-            return this.userEvents.concat(this.administratedEvents);
-        }
+        ...mapGetters(['userEvents']),
     },
     methods: {
         setShowDate(d) {
